@@ -73,6 +73,7 @@ export const lecturers: Lecturer[] = [
     yearsInCollege: 11,
     profession: "Librarian",
     totalExperience: 16,
+    image: "/images/librarian.png",
   },
   {
     id: "8",
@@ -82,6 +83,7 @@ export const lecturers: Lecturer[] = [
     yearsInCollege: 7,
     profession: "Physical Director",
     totalExperience: 14,
+    image: "/images/physical_director.png",
   },
   {
     id: "9",
@@ -91,6 +93,7 @@ export const lecturers: Lecturer[] = [
     yearsInCollege: 8,
     profession: "Hostel Warden",
     totalExperience: 12,
+    image: "/images/hostel_warden.png",
   }
 ];
 

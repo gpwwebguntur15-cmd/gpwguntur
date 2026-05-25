@@ -55,7 +55,7 @@ export default function ContactPage() {
                   <span className="text-2xl">✉️</span>
                   <div>
                     <p className="font-bold text-gray-800">Email</p>
-                    <p>gpwguntur@gmail.com</p>
+                    <p>gpwguntur15@gmail.com</p>
                   </div>
                 </div>
               </div>
