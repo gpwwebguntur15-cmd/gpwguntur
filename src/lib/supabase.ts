@@ -30,23 +30,34 @@ export async function getSupabaseLecturers(): Promise<Lecturer[]> {
 
   if (error) throw error;
 
-  // Map snake_case database fields to typescript camelCase model
-  return (data || []).map((row: any) => ({
-    id: row.id,
-    name: row.name,
-    dept: row.dept,
-    age: row.age,
-    yearsInCollege: row.years_in_college,
-    profession: row.profession,
-    totalExperience: row.total_experience,
-    image: row.image
-  }));
+  return (data || []).map((row: any) => {
+    let sortOrder = 999;
+    let cleanProfession = row.profession || "";
+    const match = cleanProfession.match(/^\[(\d+)\]\s*(.*)$/);
+    if (match) {
+      sortOrder = parseInt(match[1], 10);
+      cleanProfession = match[2];
+    }
+    return {
+      id: row.id,
+      name: row.name,
+      dept: row.dept,
+      age: row.age,
+      yearsInCollege: row.years_in_college,
+      profession: cleanProfession,
+      totalExperience: row.total_experience,
+      image: row.image,
+      sortOrder: sortOrder
+    };
+  });
 }
 
 export async function addSupabaseLecturer(lecturer: Lecturer): Promise<void> {
   if (!isSupabaseConfigured()) {
     throw new Error("Supabase is not configured yet.");
   }
+
+  const storedProfession = `[${lecturer.sortOrder || 999}] ${lecturer.profession}`;
 
   const { error } = await supabase!
     .from("lecturers")
@@ -56,7 +67,7 @@ export async function addSupabaseLecturer(lecturer: Lecturer): Promise<void> {
       dept: lecturer.dept,
       age: lecturer.age,
       years_in_college: lecturer.yearsInCollege,
-      profession: lecturer.profession,
+      profession: storedProfession,
       total_experience: lecturer.totalExperience,
       image: lecturer.image
     }]);
@@ -69,6 +80,8 @@ export async function updateSupabaseLecturer(lecturer: Lecturer): Promise<void> 
     throw new Error("Supabase is not configured yet.");
   }
 
+  const storedProfession = `[${lecturer.sortOrder || 999}] ${lecturer.profession}`;
+
   const { error } = await supabase!
     .from("lecturers")
     .update({
@@ -76,7 +89,7 @@ export async function updateSupabaseLecturer(lecturer: Lecturer): Promise<void> 
       dept: lecturer.dept,
       age: lecturer.age,
       years_in_college: lecturer.yearsInCollege,
-      profession: lecturer.profession,
+      profession: storedProfession,
       total_experience: lecturer.totalExperience,
       image: lecturer.image
     })

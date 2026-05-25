@@ -24,9 +24,9 @@ export default function DepartmentPage() {
   }, []);
 
   const deptName = departments[id as keyof typeof departments] || "Department";
-  const filteredLecturers = facultyList.filter(
-    (l) => l.dept === id && l.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredLecturers = facultyList
+    .filter((l) => l.dept === id && l.name.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => (a.sortOrder || 999) - (b.sortOrder || 999));
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">

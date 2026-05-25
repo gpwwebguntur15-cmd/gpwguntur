@@ -19,8 +19,12 @@ export default function AdministrationPage() {
     loadData();
   }, []);
 
-  const officeStaff = staff.filter((l) => l.dept === "office");
-  const hostelStaff = staff.filter((l) => l.dept === "hostel");
+  const officeStaff = staff
+    .filter((l) => l.dept === "office")
+    .sort((a, b) => (a.sortOrder || 999) - (b.sortOrder || 999));
+  const hostelStaff = staff
+    .filter((l) => l.dept === "hostel")
+    .sort((a, b) => (a.sortOrder || 999) - (b.sortOrder || 999));
 
   const activeStaff = activeTab === "office" ? officeStaff : hostelStaff;
 

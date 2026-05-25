@@ -7,6 +7,7 @@ export interface Lecturer {
   profession: string;
   totalExperience: number;
   image?: string;
+  sortOrder?: number;
 }
 
 export const lecturers: Lecturer[] = [
@@ -98,6 +99,5 @@ export const departments = {
   ccp: "Commercial And Computer Practice",
   adft: "ADFT",
   pharmacy: "Pharmacy",
-  general: "General Section",
   office: "Office administration",
 };

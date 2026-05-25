@@ -19,7 +19,6 @@ const academicDepts = {
   ccp: "Commercial And Computer Practice",
   adft: "ADFT",
   pharmacy: "Pharmacy",
-  general: "General Section",
 };
 
 const administrativeDepts = {
@@ -50,6 +49,7 @@ export default function AdminPage() {
     profession: "",
     totalExperience: "",
     image: "",
+    sortOrder: "",
   });
 
   const [facultyCategory, setFacultyCategory] = useState<"academic" | "admin">("academic");
@@ -61,7 +61,6 @@ export default function AdminPage() {
     ccp: "Commercial And Computer Practice",
     adft: "ADFT",
     pharmacy: "Pharmacy",
-    general: "General Section",
     office: "Office administration",
     hostel: "Hostel",
   });
@@ -85,7 +84,6 @@ export default function AdminPage() {
             ccp: "Commercial And Computer Practice",
             adft: "ADFT",
             pharmacy: "Pharmacy",
-            general: "General Section",
             office: "Office administration",
             hostel: "Hostel",
           }[l.dept];
@@ -188,7 +186,8 @@ export default function AdminPage() {
       yearsInCollege: Number(newLecturer.yearsInCollege),
       profession: newLecturer.profession,
       totalExperience: Number(newLecturer.totalExperience),
-      image: newLecturer.image || undefined
+      image: newLecturer.image || undefined,
+      sortOrder: newLecturer.sortOrder ? Number(newLecturer.sortOrder) : undefined
     };
 
     try {
@@ -206,6 +205,7 @@ export default function AdminPage() {
         profession: "",
         totalExperience: "",
         image: "",
+        sortOrder: "",
       });
       setEditingLecturerId(null);
       setIsCustomDept(false);
@@ -218,7 +218,7 @@ export default function AdminPage() {
   const handleEditClick = (lecturer: Lecturer) => {
     setEditingLecturerId(lecturer.id);
     
-    const isAcademic = ["ece", "ccp", "adft", "pharmacy", "general"].includes(lecturer.dept);
+    const isAcademic = ["ece", "ccp", "adft", "pharmacy"].includes(lecturer.dept);
     const isAdmin = ["office", "hostel"].includes(lecturer.dept);
     
     if (isAdmin) {
@@ -232,6 +232,7 @@ export default function AdminPage() {
         profession: lecturer.profession,
         totalExperience: lecturer.totalExperience.toString(),
         image: lecturer.image || "",
+        sortOrder: lecturer.sortOrder ? lecturer.sortOrder.toString() : "",
       });
     } else if (isAcademic) {
       setFacultyCategory("academic");
@@ -244,6 +245,7 @@ export default function AdminPage() {
         profession: lecturer.profession,
         totalExperience: lecturer.totalExperience.toString(),
         image: lecturer.image || "",
+        sortOrder: lecturer.sortOrder ? lecturer.sortOrder.toString() : "",
       });
     } else {
       // Custom department!
@@ -266,6 +268,7 @@ export default function AdminPage() {
         profession: lecturer.profession,
         totalExperience: lecturer.totalExperience.toString(),
         image: lecturer.image || "",
+        sortOrder: lecturer.sortOrder ? lecturer.sortOrder.toString() : "",
       });
     }
     
@@ -288,6 +291,7 @@ export default function AdminPage() {
             profession: "",
             totalExperience: "",
             image: "",
+            sortOrder: "",
           });
           setIsCustomDept(false);
           setCustomDeptName("");
@@ -308,6 +312,7 @@ export default function AdminPage() {
       profession: "",
       totalExperience: "",
       image: "",
+      sortOrder: "",
     });
     setIsCustomDept(false);
     setCustomDeptName("");
@@ -317,6 +322,21 @@ export default function AdminPage() {
     l.name.toLowerCase().includes(facultySearch.toLowerCase()) ||
     fullDepartments[l.dept]?.toLowerCase().includes(facultySearch.toLowerCase())
   );
+
+  // Group filteredLecturers by department
+  const groupedLecturers = filteredLecturers.reduce((acc, lecturer) => {
+    const deptId = lecturer.dept;
+    if (!acc[deptId]) {
+      acc[deptId] = [];
+    }
+    acc[deptId].push(lecturer);
+    return acc;
+  }, {} as Record<string, Lecturer[]>);
+
+  // Sort each group by sortOrder ascending (defaulting to 999)
+  Object.keys(groupedLecturers).forEach((deptId) => {
+    groupedLecturers[deptId].sort((a, b) => (a.sortOrder || 999) - (b.sortOrder || 999));
+  });
 
   const handleResetLocalStorage = () => {
     if (confirm("Are you sure you want to clear all sandbox data in local storage? This will restore the default mock directory data.")) {
@@ -598,7 +618,18 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<your_anon_key>`}
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-4 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider text-xs font-semibold text-pink-700">Display Order</label>
+                  <input
+                    type="number"
+                    placeholder="e.g. 1, 2..."
+                    className="w-full px-4 py-3 border border-pink-200 rounded focus:outline-none focus:ring-2 focus:ring-pink-500 bg-pink-50/50 text-gray-900 font-bold"
+                    value={newLecturer.sortOrder}
+                    onChange={(e) => setNewLecturer({ ...newLecturer, sortOrder: e.target.value })}
+                  />
+                </div>
+
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider text-xs">Age</label>
                   <input
@@ -691,72 +722,83 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<your_anon_key>`}
             </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Faculty</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Department</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Rank / Profession</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Stats (Age / Col / Exp)</th>
-                  <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {filteredLecturers.map((lecturer) => (
-                  <tr key={lecturer.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        {lecturer.image ? (
-                          <img 
-                            src={lecturer.image} 
-                            alt={lecturer.name} 
-                            className="w-10 h-10 rounded-2xl object-cover border border-gray-200" 
-                          />
-                        ) : (
-                          <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center text-college-blue font-bold text-sm">
-                            {lecturer.name.charAt(0)}
-                          </div>
-                        )}
-                        <span className="font-bold text-gray-800">{lecturer.name}</span>
-                      </div>
-                    </td>
-                    <td className="p-4 text-sm font-semibold text-gray-600">
-                      {fullDepartments[lecturer.dept] || lecturer.dept}
-                    </td>
-                    <td className="p-4 text-sm text-blue-600 font-medium">
-                      {lecturer.profession}
-                    </td>
-                    <td className="p-4 text-sm text-gray-600 font-mono">
-                      {lecturer.age}y / {lecturer.yearsInCollege}y / {lecturer.totalExperience}y
-                    </td>
-                    <td className="p-4">
-                      <div className="flex items-center justify-center gap-3">
-                        <button
-                          onClick={() => handleEditClick(lecturer)}
-                          className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded font-bold text-xs hover:bg-blue-100 transition-colors cursor-pointer"
-                        >
-                          EDIT
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(lecturer.id, lecturer.name)}
-                          className="px-3 py-1.5 bg-rose-50 text-rose-600 rounded font-bold text-xs hover:bg-rose-100 transition-colors cursor-pointer"
-                        >
-                          DELETE
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {filteredLecturers.length === 0 && (
-                  <tr>
-                    <td colSpan={5} className="p-8 text-center text-gray-500 italic">
-                      No faculty members found.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+          <div className="space-y-8">
+            {Object.entries(groupedLecturers).map(([deptId, deptLecturers]) => (
+              <div key={deptId} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                <div className="bg-gray-100 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                  <h4 className="text-sm font-bold text-college-blue uppercase tracking-wider">
+                    📁 {fullDepartments[deptId] || deptId}
+                  </h4>
+                  <span className="bg-blue-100 text-college-blue text-xs font-bold px-3 py-1 rounded-full">
+                    {deptLecturers.length} {deptLecturers.length === 1 ? "Staff" : "Staff Members"}
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-gray-50 border-b border-gray-100">
+                        <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider w-1/4">Order / Faculty</th>
+                        <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider w-1/4">Rank / Profession</th>
+                        <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider w-1/4">Stats (Age / Col / Exp)</th>
+                        <th className="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center w-1/4">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {deptLecturers.map((lecturer) => (
+                        <tr key={lecturer.id} className="hover:bg-gray-50 transition-colors">
+                          <td className="p-4">
+                            <div className="flex items-center gap-3">
+                              <span className="text-xs font-bold font-mono text-gray-400 bg-gray-100 px-2 py-1 rounded" title="Display Order Position">
+                                #{lecturer.sortOrder || 999}
+                              </span>
+                              {lecturer.image ? (
+                                <img 
+                                  src={lecturer.image} 
+                                  alt={lecturer.name} 
+                                  className="w-10 h-10 rounded-2xl object-cover border border-gray-200" 
+                                />
+                              ) : (
+                                <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center text-college-blue font-bold text-sm">
+                                  {lecturer.name.charAt(0)}
+                                </div>
+                              )}
+                              <span className="font-bold text-gray-800">{lecturer.name}</span>
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-blue-600 font-medium">
+                            {lecturer.profession}
+                          </td>
+                          <td className="p-4 text-sm text-gray-600 font-mono">
+                            {lecturer.age}y / {lecturer.yearsInCollege}y / {lecturer.totalExperience}y
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center justify-center gap-3">
+                              <button
+                                onClick={() => handleEditClick(lecturer)}
+                                className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded font-bold text-xs hover:bg-blue-100 transition-colors cursor-pointer"
+                              >
+                                EDIT
+                              </button>
+                              <button
+                                onClick={() => handleDeleteClick(lecturer.id, lecturer.name)}
+                                className="px-3 py-1.5 bg-rose-50 text-rose-600 rounded font-bold text-xs hover:bg-rose-100 transition-colors cursor-pointer"
+                              >
+                                DELETE
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
+            {Object.keys(groupedLecturers).length === 0 && (
+              <div className="p-8 text-center text-gray-500 italic bg-gray-50 border border-dashed border-gray-250 rounded-lg">
+                No faculty members found.
+              </div>
+            )}
           </div>
         </div>
 
