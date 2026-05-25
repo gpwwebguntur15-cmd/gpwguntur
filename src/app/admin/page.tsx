@@ -194,6 +194,15 @@ export default function AdminPage() {
     departments[l.dept as keyof typeof departments]?.toLowerCase().includes(facultySearch.toLowerCase())
   );
 
+  const handleResetLocalStorage = () => {
+    if (confirm("Are you sure you want to clear all sandbox data in local storage? This will restore the default mock directory data.")) {
+      localStorage.removeItem("gpw_lecturers");
+      localStorage.removeItem("gpw_principal");
+      alert("Local sandbox storage cleared! Reloading...");
+      window.location.reload();
+    }
+  };
+
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4">
@@ -261,9 +270,14 @@ export default function AdminPage() {
             </div>
             <p className="text-gray-500">Manage principal credentials, website desk, and faculty members</p>
           </div>
-          <button onClick={() => setIsLoggedIn(false)} className="px-6 py-2 border-2 border-college-blue text-college-blue font-bold rounded hover:bg-college-blue hover:text-white transition-all">
-            LOGOUT
-          </button>
+          <div className="flex gap-4">
+            <button onClick={handleResetLocalStorage} className="px-6 py-2 border-2 border-rose-600 text-rose-600 font-bold rounded hover:bg-rose-600 hover:text-white transition-all cursor-pointer">
+              RESET SANDBOX CACHE
+            </button>
+            <button onClick={() => setIsLoggedIn(false)} className="px-6 py-2 border-2 border-college-blue text-college-blue font-bold rounded hover:bg-college-blue hover:text-white transition-all cursor-pointer">
+              LOGOUT
+            </button>
+          </div>
         </div>
 
         {/* Database instructions */}
