@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -118,6 +119,7 @@ export default function RootLayout({
             <p>&copy; 2026 Government Polytechnic For Women, Guntur. All Rights Reserved.</p>
           </div>
         </footer>
+        <SpeedInsights />
       </body>
     </html>
   );
