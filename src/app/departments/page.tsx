@@ -6,8 +6,7 @@ export default function DepartmentsPage() {
     { id: "ccp", name: "Commercial And Computer Practice", desc: "Modern commerce, accounting, and computer practice skills.", icon: "📊" },
     { id: "adft", name: "ADFT", desc: "Apparel Design and Fashion Technology for creative designers.", icon: "👗" },
     { id: "pharmacy", name: "Pharmacy", desc: "Pharmaceutical sciences, chemistry, and clinical practice.", icon: "💊" },
-    { id: "general", name: "General Section", desc: "Foundational mathematics, sciences, and English humanities.", icon: "🧪" },
-    { id: "office", name: "Office administration", desc: "Institutional management, records, and administration services.", icon: "🏢" }
+    { id: "general", name: "General Section", desc: "Foundational mathematics, sciences, and English humanities.", icon: "🧪" }
   ];
 
   return (

@@ -18,6 +18,7 @@ export default function Header() {
     { href: "/", label: "HOME" },
     { href: "/about", label: "ABOUT" },
     { href: "/departments", label: "DEPARTMENTS" },
+    { href: "/administration", label: "ADMINISTRATION" },
     { href: "/facilities", label: "FACILITIES" },
     { href: "/placements", label: "PLACEMENTS" },
     { href: "/contact", label: "CONTACT" },
