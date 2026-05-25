@@ -7,8 +7,7 @@ export default function DepartmentsPage() {
     { id: "adft", name: "ADFT", desc: "Apparel Design and Fashion Technology for creative designers.", icon: "👗" },
     { id: "pharmacy", name: "Pharmacy", desc: "Pharmaceutical sciences, chemistry, and clinical practice.", icon: "💊" },
     { id: "general", name: "General Section", desc: "Foundational mathematics, sciences, and English humanities.", icon: "🧪" },
-    { id: "office", name: "Office administration", desc: "Institutional management, records, and administration services.", icon: "🏢" },
-    { id: "hostel", name: "Hostel", desc: "Residential and dining facilities for female students.", icon: "🏠" }
+    { id: "office", name: "Office administration", desc: "Institutional management, records, and administration services.", icon: "🏢" }
   ];
 
   return (
