@@ -10,7 +10,8 @@ const departments = [
   { id: "adft", name: "ADFT", desc: "Apparel Design and Fashion Technology for creative designers.", icon: "👗" },
   { id: "pharmacy", name: "Pharmacy", desc: "Pharmaceutical sciences, chemistry, and clinical practice.", icon: "💊" },
   { id: "general", name: "General Section", desc: "Foundational mathematics, sciences, and English humanities.", icon: "🧪" },
-  { id: "office", name: "Office administration", desc: "Institutional management, records, and administration services.", icon: "🏢" }
+  { id: "office", name: "Office administration", desc: "Institutional management, records, and administration services.", icon: "🏢" },
+  { id: "hostel", name: "Hostel", desc: "Residential and dining facilities for female students.", icon: "🏠" }
 ];
 
 export default function Home() {
@@ -84,15 +85,16 @@ export default function Home() {
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4 md:px-20">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="lg:w-1/3 relative">
+            {/* Principal Photo and Name/Title Underneath */}
+            <div className="lg:w-1/3 relative w-full flex flex-col items-center">
               <div className="absolute -top-6 -left-6 w-32 h-32 bg-blue-100 rounded-full opacity-50 z-0"></div>
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-pink-100 rounded-full opacity-50 z-0"></div>
-              <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+              <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white w-full max-w-sm">
                 <img src={principal.photo} alt="Principal" className="w-full aspect-[4/5] object-cover" />
               </div>
-              <div className="absolute bottom-6 -right-12 bg-college-blue text-white p-6 shadow-xl hidden md:block z-20">
-                <p className="text-xl font-bold uppercase tracking-tight">{principal.name}</p>
-                <p className="text-blue-300 font-semibold text-sm">{principal.title}</p>
+              <div className="mt-6 text-center z-10">
+                <p className="text-2xl font-bold text-college-blue uppercase tracking-tight">{principal.name}</p>
+                <p className="text-gray-500 font-semibold uppercase text-xs tracking-widest mt-1">{principal.title}</p>
               </div>
             </div>
             
@@ -106,10 +108,6 @@ export default function Home() {
                 </p>
                 <div className="whitespace-pre-line">
                   {principal.message}
-                </div>
-                <div className="pt-6">
-                  <p className="font-bold text-college-blue text-xl">{principal.name}</p>
-                  <p className="text-gray-500 font-semibold uppercase text-xs tracking-widest mt-1">{principal.title}</p>
                 </div>
               </div>
             </div>
