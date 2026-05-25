@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import Header from "./components/Header";
 
 export const metadata: Metadata = {
   title: "Government Polytechnic For Women, Guntur",
@@ -27,41 +28,8 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Header / Nav */}
-        <header className="bg-white shadow-md sticky top-0 z-50">
-          <div className="container mx-auto px-4 md:px-20 py-4 flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-4">
-              <div className="bg-college-blue p-2 rounded-full text-white font-bold text-xl w-12 h-12 flex items-center justify-center">
-                GPW
-              </div>
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold text-college-blue leading-tight">
-                  GOVERNMENT POLYTECHNIC FOR WOMEN
-                </h1>
-                <p className="text-xs text-gray-500 font-semibold tracking-widest uppercase">
-                  Guntur, Andhra Pradesh
-                </p>
-              </div>
-            </Link>
-
-            <nav className="hidden lg:flex items-center gap-8 font-semibold text-gray-700">
-              <Link href="/" className="text-college-blue hover:text-blue-800">HOME</Link>
-              <Link href="/about" className="hover:text-college-blue">ABOUT</Link>
-              <Link href="/departments" className="hover:text-college-blue">DEPARTMENTS</Link>
-              <Link href="/facilities" className="hover:text-college-blue">FACILITIES</Link>
-              <Link href="/placements" className="hover:text-college-blue">PLACEMENTS</Link>
-              <Link href="/contact" className="hover:text-college-blue">CONTACT</Link>
-            </nav>
-
-            <button className="lg:hidden text-college-blue p-2">
-              <div className="space-y-1.5">
-                <span className="block w-6 h-0.5 bg-college-blue"></span>
-                <span className="block w-6 h-0.5 bg-college-blue"></span>
-                <span className="block w-6 h-0.5 bg-college-blue"></span>
-              </div>
-            </button>
-          </div>
-        </header>
+        {/* Dynamic Client Header */}
+        <Header />
 
         <main>
           {children}
