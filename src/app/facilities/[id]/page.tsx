@@ -98,10 +98,10 @@ export default function FacilityDetailPage() {
     async function loadStaff() {
       const list = await loadLecturersDb();
       if (id === "library") {
-        const found = list.find(s => s.profession.toLowerCase().includes("librarian") || s.name.toLowerCase().includes("ravindra"));
+        const found = list.find(s => s.profession.toLowerCase().includes("librarian"));
         if (found) setAssociatedStaff(found);
       } else if (id === "sports") {
-        const found = list.find(s => s.profession.toLowerCase().includes("physical director") || s.name.toLowerCase().includes("srinivas"));
+        const found = list.find(s => s.profession.toLowerCase().includes("physical director"));
         if (found) setAssociatedStaff(found);
       }
     }
