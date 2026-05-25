@@ -8,8 +8,7 @@ const departments = [
   { id: "ece", name: "Electronics And Communication Engineering", desc: "Communication systems & circuit design.", icon: "📡" },
   { id: "ccp", name: "Commercial And Computer Practice", desc: "Modern commerce, accounting, and computer practice skills.", icon: "📊" },
   { id: "adft", name: "ADFT", desc: "Apparel Design and Fashion Technology for creative designers.", icon: "👗" },
-  { id: "pharmacy", name: "Pharmacy", desc: "Pharmaceutical sciences, chemistry, and clinical practice.", icon: "💊" },
-  { id: "general", name: "General Section", desc: "Foundational mathematics, sciences, and English humanities.", icon: "🧪" }
+  { id: "pharmacy", name: "Pharmacy", desc: "Pharmaceutical sciences, chemistry, and clinical practice.", icon: "💊" }
 ];
 
 export default function Home() {

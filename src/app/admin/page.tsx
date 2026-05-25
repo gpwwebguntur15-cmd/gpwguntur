@@ -111,10 +111,10 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "admin" && password === "college123") {
+    if (username === "gpwguntur" && password === "padmavathi") {
       setIsLoggedIn(true);
     } else {
-      alert("Invalid credentials. Try admin / college123");
+      alert("Invalid credentials. Please try again.");
     }
   };
 
@@ -383,9 +383,7 @@ export default function AdminPage() {
             </button>
           </form>
           <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-            <p className="text-xs text-gray-400 mb-2 italic">For demo purposes:</p>
-            <p className="text-sm font-mono text-blue-600 bg-blue-50 py-2 rounded">admin / college123</p>
-            <Link href="/" className="inline-block mt-6 text-sm text-gray-500 hover:text-college-blue font-semibold">
+            <Link href="/" className="inline-block text-sm text-gray-500 hover:text-college-blue font-semibold">
               ← Back to Homepage
             </Link>
           </div>
