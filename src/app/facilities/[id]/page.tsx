@@ -2,6 +2,9 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { loadLecturersDb } from "@/lib/storage";
+import { Lecturer } from "@/lib/data";
 import { facilities } from "../page";
 
 const facilityDetails: Record<string, {
@@ -89,6 +92,21 @@ export default function FacilityDetailPage() {
   const id = params.id as string;
   const facility = facilities.find((f) => f.id === id);
   const detail = facilityDetails[id];
+  const [associatedStaff, setAssociatedStaff] = useState<Lecturer | null>(null);
+
+  useEffect(() => {
+    async function loadStaff() {
+      const list = await loadLecturersDb();
+      if (id === "library") {
+        const found = list.find(s => s.profession.toLowerCase().includes("librarian") || s.name.toLowerCase().includes("ravindra"));
+        if (found) setAssociatedStaff(found);
+      } else if (id === "sports") {
+        const found = list.find(s => s.profession.toLowerCase().includes("physical director") || s.name.toLowerCase().includes("srinivas"));
+        if (found) setAssociatedStaff(found);
+      }
+    }
+    loadStaff();
+  }, [id]);
 
   if (!facility || !detail) {
     return (
@@ -104,7 +122,7 @@ export default function FacilityDetailPage() {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen py-12">
+    <div className="bg-gray-50 min-h-screen py-12 animate-fade-in">
       <div className="container mx-auto px-4 md:px-20">
         <nav className="flex text-sm text-gray-500 mb-8 items-center gap-2">
           <Link href="/" className="hover:text-college-blue transition-colors">HOME</Link>
@@ -127,8 +145,8 @@ export default function FacilityDetailPage() {
           
           <div className="w-20 h-1 bg-blue-600 mb-8"></div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2">
               <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Description</h3>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">{detail.details}</p>
               
@@ -136,9 +154,7 @@ export default function FacilityDetailPage() {
                 <p className="font-bold text-college-blue mb-1 uppercase text-sm">Working Hours / Availability</p>
                 <p className="text-gray-700 font-semibold">{detail.timing}</p>
               </div>
-            </div>
-
-            <div>
+              
               <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Key Features & Facilities</h3>
               <ul className="space-y-4">
                 {detail.features.map((feature, i) => (
@@ -148,6 +164,43 @@ export default function FacilityDetailPage() {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* Sidebar with Staff Profile Card */}
+            <div>
+              {associatedStaff ? (
+                <div className="bg-white p-8 shadow-md border-t-4 border-blue-600 rounded-lg flex flex-col items-center text-center">
+                  <h4 className="text-base font-bold text-gray-800 mb-6 uppercase tracking-wider">
+                    {id === "library" ? "Librarian In-Charge" : "Physical Director"}
+                  </h4>
+                  <div className="relative z-10 rounded-xl overflow-hidden shadow-lg border-4 border-gray-100 w-48 h-60 mb-4">
+                    {associatedStaff.image ? (
+                      <img src={associatedStaff.image} alt={associatedStaff.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-blue-100 flex items-center justify-center text-college-blue text-5xl font-bold">
+                        {associatedStaff.name.charAt(0)}
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-lg font-bold text-college-blue uppercase tracking-tight">{associatedStaff.name}</p>
+                  <p className="text-gray-500 font-semibold text-xs tracking-wider uppercase mt-1">{associatedStaff.profession}</p>
+                  
+                  <div className="grid grid-cols-2 gap-4 mt-6 text-sm w-full pt-4 border-t border-gray-100">
+                    <div>
+                      <p className="text-gray-400 uppercase text-[9px] font-bold">In Service</p>
+                      <p className="font-bold text-gray-800">{associatedStaff.yearsInCollege} Yrs</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 uppercase text-[9px] font-bold">Experience</p>
+                      <p className="font-bold text-gray-800">{associatedStaff.totalExperience} Yrs</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-gray-50 p-8 rounded-lg text-center text-gray-400 text-sm italic border border-dashed border-gray-200">
+                  General facilities info.
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -63,6 +63,24 @@ export const lecturers: Lecturer[] = [
     yearsInCollege: 10,
     profession: "Senior Administrator",
     totalExperience: 14,
+  },
+  {
+    id: "7",
+    name: "Mr. G. Ravindra, M.Li.Sc.",
+    dept: "general",
+    age: 44,
+    yearsInCollege: 11,
+    profession: "Librarian",
+    totalExperience: 16,
+  },
+  {
+    id: "8",
+    name: "Dr. K. Srinivas, M.P.Ed., PhD",
+    dept: "general",
+    age: 41,
+    yearsInCollege: 7,
+    profession: "Physical Director",
+    totalExperience: 14,
   }
 ];
 

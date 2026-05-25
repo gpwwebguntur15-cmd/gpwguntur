@@ -80,10 +80,10 @@ export default function DepartmentPage() {
                     <img 
                       src={lecturer.image} 
                       alt={lecturer.name} 
-                      className="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-md mb-4" 
+                      className="w-32 h-32 rounded-2xl object-cover border-4 border-gray-100 shadow-md mb-4" 
                     />
                   ) : (
-                    <div className="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center text-college-blue text-4xl font-bold mb-4 shadow-inner">
+                    <div className="w-32 h-32 bg-blue-100 rounded-2xl flex items-center justify-center text-college-blue text-4xl font-bold mb-4 shadow-inner">
                       {lecturer.name.charAt(0)}
                     </div>
                   )}
