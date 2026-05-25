@@ -48,14 +48,14 @@ export default function ContactPage() {
                   <span className="text-2xl">📞</span>
                   <div>
                     <p className="font-bold text-gray-800">Phone</p>
-                    <p>0863-2234057</p>
+                    <p>+91 9912342015</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
                   <span className="text-2xl">✉️</span>
                   <div>
                     <p className="font-bold text-gray-800">Email</p>
-                    <p>gpwguntur15@gmail.com</p>
+                    <p>gpwwebguntur15@gmail.com</p>
                   </div>
                 </div>
               </div>

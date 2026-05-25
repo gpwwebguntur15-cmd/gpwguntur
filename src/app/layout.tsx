@@ -19,8 +19,8 @@ export default function RootLayout({
         {/* Top Bar */}
         <div className="bg-college-blue text-white py-2 px-4 md:px-20 text-sm flex justify-between items-center">
           <div className="flex gap-6">
-            <span>📞 +91 863 2234057</span>
-            <span>✉️ gpwguntur15@gmail.com</span>
+            <span>📞 +91 9912342015</span>
+            <span>✉️ gpwwebguntur15@gmail.com</span>
           </div>
           <div className="hidden md:flex gap-4">
             <Link href="/admin" className="hover:underline">Admin Login</Link>
@@ -46,8 +46,8 @@ export default function RootLayout({
                 Andhra Pradesh.
               </p>
               <p className="text-gray-400">
-                Phone: 0863-2234057<br />
-                Email: gpwguntur15@gmail.com
+                Phone: +91 9912342015<br />
+                Email: gpwwebguntur15@gmail.com
               </p>
             </div>
             <div>
