@@ -6,8 +6,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 // Initialize client only if config is provided
-export const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey) 
+export const supabase = supabaseUrl && supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
 // Helpers to check if Supabase is active
@@ -22,14 +22,14 @@ export async function getSupabaseLecturers(): Promise<Lecturer[]> {
   if (!isSupabaseConfigured()) {
     throw new Error("Supabase is not configured yet. Using local fallback.");
   }
-  
+
   const { data, error } = await supabase!
     .from("lecturers")
     .select("*")
     .order("created_at", { ascending: true });
 
   if (error) throw error;
-  
+
   // Map snake_case database fields to typescript camelCase model
   return (data || []).map((row: any) => ({
     id: row.id,
