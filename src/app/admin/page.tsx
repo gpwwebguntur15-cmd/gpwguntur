@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { departments } from "@/lib/data";
 import { 
   loadPrincipalDb, 
   savePrincipalDb, 
@@ -14,6 +13,19 @@ import {
 import { Lecturer } from "@/lib/data";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import Link from "next/link";
+
+const academicDepts = {
+  ece: "Electronics And Communication Engineering",
+  ccp: "Commercial And Computer Practice",
+  adft: "ADFT",
+  pharmacy: "Pharmacy",
+  general: "General Section",
+};
+
+const administrativeDepts = {
+  office: "Office administration",
+  hostel: "Hostel",
+};
 
 export default function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +41,7 @@ export default function AdminPage() {
   const [lecturerList, setLecturerList] = useState<Lecturer[]>([]);
   const [editingLecturerId, setEditingLecturerId] = useState<string | null>(null);
 
+  // Form states
   const [newLecturer, setNewLecturer] = useState({
     name: "",
     dept: "ece",
@@ -37,6 +50,20 @@ export default function AdminPage() {
     profession: "",
     totalExperience: "",
     image: "",
+  });
+
+  const [facultyCategory, setFacultyCategory] = useState<"academic" | "admin">("academic");
+  const [isCustomDept, setIsCustomDept] = useState(false);
+  const [customDeptName, setCustomDeptName] = useState("");
+
+  const [fullDepartments, setFullDepartments] = useState<Record<string, string>>({
+    ece: "Electronics And Communication Engineering",
+    ccp: "Commercial And Computer Practice",
+    adft: "ADFT",
+    pharmacy: "Pharmacy",
+    general: "General Section",
+    office: "Office administration",
+    hostel: "Hostel",
   });
 
   const [facultySearch, setFacultySearch] = useState("");
@@ -49,6 +76,36 @@ export default function AdminPage() {
         const lecturersData = await loadLecturersDb();
         setPrincipal(principalInfo);
         setLecturerList(lecturersData);
+        
+        // Dynamically discover custom departments
+        const customDeptsMap: Record<string, string> = {};
+        lecturersData.forEach((l) => {
+          const defaultName = {
+            ece: "Electronics And Communication Engineering",
+            ccp: "Commercial And Computer Practice",
+            adft: "ADFT",
+            pharmacy: "Pharmacy",
+            general: "General Section",
+            office: "Office administration",
+            hostel: "Hostel",
+          }[l.dept];
+          
+          if (!defaultName) {
+            let displayName = l.dept;
+            if (displayName.startsWith("adm-")) {
+              displayName = displayName.substring(4);
+            }
+            displayName = displayName
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (char) => char.toUpperCase());
+            customDeptsMap[l.dept] = displayName;
+          }
+        });
+        
+        setFullDepartments((prev) => ({
+          ...prev,
+          ...customDeptsMap,
+        }));
       }
     }
     loadData();
@@ -103,11 +160,30 @@ export default function AdminPage() {
   const handleAddOrUpdateLecturer = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    let finalDept = newLecturer.dept;
+    if (newLecturer.dept === "other") {
+      if (!customDeptName.trim()) {
+        alert("Please enter a custom department name");
+        return;
+      }
+      let slug = customDeptName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      if (facultyCategory === "admin" && !slug.startsWith("adm-")) {
+        slug = "adm-" + slug;
+      }
+      finalDept = slug;
+      
+      // Cache display name in state immediately
+      setFullDepartments(prev => ({
+        ...prev,
+        [slug]: customDeptName.trim()
+      }));
+    }
+
     const facId = editingLecturerId || Date.now().toString();
     const fac: Lecturer = {
       id: facId,
       name: newLecturer.name,
-      dept: newLecturer.dept,
+      dept: finalDept,
       age: Number(newLecturer.age),
       yearsInCollege: Number(newLecturer.yearsInCollege),
       profession: newLecturer.profession,
@@ -124,7 +200,7 @@ export default function AdminPage() {
       // Reset form
       setNewLecturer({
         name: "",
-        dept: "ece",
+        dept: facultyCategory === "academic" ? "ece" : "office",
         age: "",
         yearsInCollege: "",
         profession: "",
@@ -132,6 +208,8 @@ export default function AdminPage() {
         image: "",
       });
       setEditingLecturerId(null);
+      setIsCustomDept(false);
+      setCustomDeptName("");
     } catch (err) {
       alert("Error saving faculty member: " + (err as Error).message);
     }
@@ -139,16 +217,58 @@ export default function AdminPage() {
 
   const handleEditClick = (lecturer: Lecturer) => {
     setEditingLecturerId(lecturer.id);
-    setNewLecturer({
-      name: lecturer.name,
-      dept: lecturer.dept,
-      age: lecturer.age.toString(),
-      yearsInCollege: lecturer.yearsInCollege.toString(),
-      profession: lecturer.profession,
-      totalExperience: lecturer.totalExperience.toString(),
-      image: lecturer.image || "",
-    });
-    // Scroll form into view
+    
+    const isAcademic = ["ece", "ccp", "adft", "pharmacy", "general"].includes(lecturer.dept);
+    const isAdmin = ["office", "hostel"].includes(lecturer.dept);
+    
+    if (isAdmin) {
+      setFacultyCategory("admin");
+      setIsCustomDept(false);
+      setNewLecturer({
+        name: lecturer.name,
+        dept: lecturer.dept,
+        age: lecturer.age.toString(),
+        yearsInCollege: lecturer.yearsInCollege.toString(),
+        profession: lecturer.profession,
+        totalExperience: lecturer.totalExperience.toString(),
+        image: lecturer.image || "",
+      });
+    } else if (isAcademic) {
+      setFacultyCategory("academic");
+      setIsCustomDept(false);
+      setNewLecturer({
+        name: lecturer.name,
+        dept: lecturer.dept,
+        age: lecturer.age.toString(),
+        yearsInCollege: lecturer.yearsInCollege.toString(),
+        profession: lecturer.profession,
+        totalExperience: lecturer.totalExperience.toString(),
+        image: lecturer.image || "",
+      });
+    } else {
+      // Custom department!
+      const isAdmCustom = lecturer.dept.startsWith("adm-");
+      setFacultyCategory(isAdmCustom ? "admin" : "academic");
+      setIsCustomDept(true);
+      
+      let rawName = lecturer.dept;
+      if (rawName.startsWith("adm-")) {
+        rawName = rawName.substring(4);
+      }
+      const displayName = rawName.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      setCustomDeptName(displayName);
+      
+      setNewLecturer({
+        name: lecturer.name,
+        dept: "other",
+        age: lecturer.age.toString(),
+        yearsInCollege: lecturer.yearsInCollege.toString(),
+        profession: lecturer.profession,
+        totalExperience: lecturer.totalExperience.toString(),
+        image: lecturer.image || "",
+      });
+    }
+    
     window.scrollTo({ top: 180, behavior: 'smooth' });
   };
 
@@ -169,6 +289,8 @@ export default function AdminPage() {
             totalExperience: "",
             image: "",
           });
+          setIsCustomDept(false);
+          setCustomDeptName("");
         }
       } catch (err) {
         alert("Error deleting faculty member: " + (err as Error).message);
@@ -180,18 +302,20 @@ export default function AdminPage() {
     setEditingLecturerId(null);
     setNewLecturer({
       name: "",
-      dept: "ece",
+      dept: facultyCategory === "academic" ? "ece" : "office",
       age: "",
       yearsInCollege: "",
       profession: "",
       totalExperience: "",
       image: "",
     });
+    setIsCustomDept(false);
+    setCustomDeptName("");
   };
 
   const filteredLecturers = lecturerList.filter(l => 
     l.name.toLowerCase().includes(facultySearch.toLowerCase()) ||
-    departments[l.dept as keyof typeof departments]?.toLowerCase().includes(facultySearch.toLowerCase())
+    fullDepartments[l.dept]?.toLowerCase().includes(facultySearch.toLowerCase())
   );
 
   const handleResetLocalStorage = () => {
@@ -202,6 +326,8 @@ export default function AdminPage() {
       window.location.reload();
     }
   };
+
+  const currentDepts = facultyCategory === "academic" ? academicDepts : administrativeDepts;
 
   if (!isLoggedIn) {
     return (
@@ -268,37 +394,38 @@ export default function AdminPage() {
                 </button>
               )}
             </div>
-            <p className="text-gray-500">Manage principal credentials, website desk, and faculty members</p>
+            <p className="text-gray-500 font-medium">Configure principal information, messages, photos, and faculty directories.</p>
           </div>
           <div className="flex gap-4">
-            <button onClick={handleResetLocalStorage} className="px-6 py-2 border-2 border-rose-600 text-rose-600 font-bold rounded hover:bg-rose-600 hover:text-white transition-all cursor-pointer">
-              RESET SANDBOX CACHE
+            <button 
+              onClick={handleResetLocalStorage}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded font-bold transition-all text-xs uppercase tracking-wider shadow-sm cursor-pointer"
+            >
+              Reset Sandbox Cache
             </button>
-            <button onClick={() => setIsLoggedIn(false)} className="px-6 py-2 border-2 border-college-blue text-college-blue font-bold rounded hover:bg-college-blue hover:text-white transition-all cursor-pointer">
-              LOGOUT
-            </button>
+            <Link href="/" className="bg-college-blue text-white px-6 py-3 rounded font-bold hover:bg-blue-850 transition-all text-xs uppercase tracking-wider shadow-md text-center">
+              View Website
+            </Link>
           </div>
         </div>
 
-        {/* Database instructions */}
-        {showConfigHelp && (
-          <div className="bg-amber-50 border-l-4 border-amber-600 p-6 rounded mb-8 animate-fade-in">
-            <h3 className="text-lg font-bold text-amber-900 mb-2">Supabase Setup Guide</h3>
-            <p className="text-sm text-amber-700 mb-4">
-              To connect this application to a real Supabase database, create a file named <code className="font-mono bg-amber-100 px-1 py-0.5 rounded text-amber-900 font-bold">.env.local</code> in the project's root folder and populate it with:
-            </p>
-            <pre className="bg-gray-900 text-gray-200 p-4 rounded text-xs overflow-x-auto font-mono mb-4">
-{`NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_PROJECT_URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
+        {/* Database setup help */}
+        {showConfigHelp && !supabaseActive && (
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-lg mb-8 shadow-sm animate-fade-in text-gray-700">
+            <h3 className="font-bold text-amber-950 mb-2 uppercase text-sm tracking-wider">Database Setup Instructions</h3>
+            <p className="mb-4 text-sm">To connect to the cloud database, please create a <code>.env.local</code> file in your root folder and add the following keys:</p>
+            <pre className="bg-gray-900 text-green-400 p-4 rounded text-xs font-mono mb-4 overflow-x-auto">
+{`NEXT_PUBLIC_SUPABASE_URL=https://tmmcyipimbuaeuwyytaz.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your_anon_key>`}
             </pre>
-            <p className="text-sm text-amber-700">
-              Create tables for <code className="font-mono font-bold">lecturers</code> (with fields: id, name, dept, age, years_in_college, profession, total_experience, image, created_at) and <code className="font-mono font-bold">principal_info</code> (with fields: id, name, photo, title, message, updated_at).
-            </p>
+            <p className="text-xs text-gray-500">Currently using local storage fallback. All edits will save to local memory until database setup is completed.</p>
           </div>
         )}
 
+        {/* Form Sections Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-          {/* Section 1: Principal's Information */}
+          
+          {/* Section 1: Principal Details Form */}
           <div className="bg-white p-8 md:p-12 shadow-sm border border-gray-100 rounded-lg">
             <h2 className="text-2xl font-bold text-gray-800 mb-8 border-l-4 border-blue-600 pl-4 uppercase">
               Principal's Desk Info
@@ -335,7 +462,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
                     <img 
                       src={principal.photo} 
                       alt="Principal preview" 
-                      className="w-20 h-20 rounded-full object-cover border border-gray-200" 
+                      className="w-20 h-20 rounded-2xl object-cover border border-gray-200 shadow-md" 
                     />
                   )}
                   <input
@@ -367,9 +494,44 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
 
           {/* Section 2: Add or Edit Faculty */}
           <div className="bg-white p-8 md:p-12 shadow-sm border border-gray-100 rounded-lg">
-            <h2 className="text-2xl font-bold text-gray-800 mb-8 border-l-4 border-pink-600 pl-4 uppercase">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-pink-600 pl-4 uppercase">
               {editingLecturerId ? "Edit Faculty Details" : "Add New Faculty"}
             </h2>
+
+            {/* Category Tab Selectors */}
+            <div className="flex border-b border-gray-200 mb-6">
+              <button
+                type="button"
+                onClick={() => {
+                  setFacultyCategory("academic");
+                  setNewLecturer(prev => ({ ...prev, dept: "ece" }));
+                  setIsCustomDept(false);
+                }}
+                className={`py-3 px-6 font-bold text-sm border-b-4 transition-all uppercase tracking-wider ${
+                  facultyCategory === "academic"
+                    ? "border-pink-600 text-pink-600"
+                    : "border-transparent text-gray-400 hover:text-gray-600"
+                }`}
+              >
+                🎓 Academic Staff
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setFacultyCategory("admin");
+                  setNewLecturer(prev => ({ ...prev, dept: "office" }));
+                  setIsCustomDept(false);
+                }}
+                className={`py-3 px-6 font-bold text-sm border-b-4 transition-all uppercase tracking-wider ${
+                  facultyCategory === "admin"
+                    ? "border-pink-600 text-pink-600"
+                    : "border-transparent text-gray-400 hover:text-gray-600"
+                }`}
+              >
+                🏢 Administrative Staff
+              </button>
+            </div>
+
             <form onSubmit={handleAddOrUpdateLecturer} className="space-y-6">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">Full Name</label>
@@ -384,18 +546,27 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">Department</label>
+                  <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">Department / Area</label>
                   <select
                     className="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-gray-900 font-semibold"
                     value={newLecturer.dept}
-                    onChange={(e) => setNewLecturer({ ...newLecturer, dept: e.target.value })}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setNewLecturer({ ...newLecturer, dept: val });
+                      if (val === "other") {
+                        setIsCustomDept(true);
+                      } else {
+                        setIsCustomDept(false);
+                      }
+                    }}
                     required
                   >
-                    {Object.entries(departments).map(([id, name]) => (
+                    {Object.entries(currentDepts).map(([id, name]) => (
                       <option key={id} value={id}>
                         {name}
                       </option>
                     ))}
+                    <option value="other">⭐ Other (Create Custom Department)</option>
                   </select>
                 </div>
 
@@ -404,13 +575,28 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
                   <input
                     type="text"
                     className="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-gray-900 font-semibold"
-                    placeholder="e.g. Associate Professor"
+                    placeholder="e.g. Associate Professor / Warden / Librarian"
                     value={newLecturer.profession}
                     onChange={(e) => setNewLecturer({ ...newLecturer, profession: e.target.value })}
                     required
                   />
                 </div>
               </div>
+
+              {/* Custom department details if "other" is selected */}
+              {isCustomDept && (
+                <div className="p-4 bg-pink-50 border-l-4 border-pink-500 rounded animate-fade-in">
+                  <label className="block text-sm font-bold text-pink-900 mb-2 uppercase tracking-wider">Custom Department Name</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-3 border border-pink-200 rounded focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-gray-900 font-semibold"
+                    placeholder="e.g. Physical Education / Physics"
+                    value={customDeptName}
+                    onChange={(e) => setCustomDeptName(e.target.value)}
+                    required={isCustomDept}
+                  />
+                </div>
+              )}
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
@@ -454,7 +640,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
                     <img 
                       src={newLecturer.image} 
                       alt="Faculty preview" 
-                      className="w-16 h-16 rounded-full object-cover border border-gray-200" 
+                      className="w-16 h-16 rounded-2xl object-cover border border-gray-200 shadow-md" 
                     />
                   )}
                   <input
@@ -525,10 +711,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
                           <img 
                             src={lecturer.image} 
                             alt={lecturer.name} 
-                            className="w-10 h-10 rounded-full object-cover border border-gray-200" 
+                            className="w-10 h-10 rounded-2xl object-cover border border-gray-200" 
                           />
                         ) : (
-                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-college-blue font-bold text-sm">
+                          <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center text-college-blue font-bold text-sm">
                             {lecturer.name.charAt(0)}
                           </div>
                         )}
@@ -536,7 +722,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY`}
                       </div>
                     </td>
                     <td className="p-4 text-sm font-semibold text-gray-600">
-                      {departments[lecturer.dept as keyof typeof departments] || lecturer.dept}
+                      {fullDepartments[lecturer.dept] || lecturer.dept}
                     </td>
                     <td className="p-4 text-sm text-blue-600 font-medium">
                       {lecturer.profession}
