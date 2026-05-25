@@ -81,6 +81,15 @@ export const lecturers: Lecturer[] = [
     yearsInCollege: 7,
     profession: "Physical Director",
     totalExperience: 14,
+  },
+  {
+    id: "9",
+    name: "Mrs. T. Radha",
+    dept: "hostel",
+    age: 45,
+    yearsInCollege: 8,
+    profession: "Hostel Warden",
+    totalExperience: 12,
   }
 ];
 

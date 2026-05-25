@@ -169,30 +169,31 @@ export default function FacilityDetailPage() {
             {/* Sidebar with Staff Profile Card */}
             <div>
               {associatedStaff ? (
-                <div className="bg-white p-8 shadow-md border-t-4 border-blue-600 rounded-lg flex flex-col items-center text-center">
-                  <h4 className="text-base font-bold text-gray-800 mb-6 uppercase tracking-wider">
+                <div className="bg-white p-6 border border-gray-200 shadow-sm rounded-lg flex flex-col">
+                  <h4 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">
                     {id === "library" ? "Librarian In-Charge" : "Physical Director"}
                   </h4>
-                  <div className="relative z-10 rounded-xl overflow-hidden shadow-lg border-4 border-gray-100 w-48 h-60 mb-4">
+                  <div className="w-full aspect-square overflow-hidden border border-gray-300 mb-4 bg-gray-50 flex items-center justify-center">
                     {associatedStaff.image ? (
                       <img src={associatedStaff.image} alt={associatedStaff.name} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-blue-100 flex items-center justify-center text-college-blue text-5xl font-bold">
+                      <div className="w-full h-full bg-blue-100 flex items-center justify-center text-college-blue text-7xl font-bold">
                         {associatedStaff.name.charAt(0)}
                       </div>
                     )}
                   </div>
-                  <p className="text-lg font-bold text-college-blue uppercase tracking-tight">{associatedStaff.name}</p>
-                  <p className="text-gray-500 font-semibold text-xs tracking-wider uppercase mt-1">{associatedStaff.profession}</p>
-                  
-                  <div className="grid grid-cols-2 gap-4 mt-6 text-sm w-full pt-4 border-t border-gray-100">
-                    <div>
+                  <div className="mb-4">
+                    <p className="text-xl font-bold text-gray-900 leading-tight">{associatedStaff.name}</p>
+                    <p className="text-gray-500 font-semibold text-sm mt-1">{associatedStaff.profession}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-sm w-full pt-4 border-t border-gray-100">
+                    <div className="bg-gray-50 p-2 rounded text-center">
                       <p className="text-gray-400 uppercase text-[9px] font-bold">In Service</p>
-                      <p className="font-bold text-gray-800">{associatedStaff.yearsInCollege} Yrs</p>
+                      <p className="font-bold text-gray-800 text-xs">{associatedStaff.yearsInCollege} Yrs</p>
                     </div>
-                    <div>
+                    <div className="bg-gray-50 p-2 rounded text-center">
                       <p className="text-gray-400 uppercase text-[9px] font-bold">Experience</p>
-                      <p className="font-bold text-gray-800">{associatedStaff.totalExperience} Yrs</p>
+                      <p className="font-bold text-gray-800 text-xs">{associatedStaff.totalExperience} Yrs</p>
                     </div>
                   </div>
                 </div>
