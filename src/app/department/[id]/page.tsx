@@ -74,37 +74,35 @@ export default function DepartmentPage() {
         {isLoaded && filteredLecturers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredLecturers.map((lecturer) => (
-              <div key={lecturer.id} className="bg-white p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-4 mb-6">
+              <div key={lecturer.id} className="bg-white p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                <div className="mb-6 flex flex-col items-center">
                   {lecturer.image ? (
                     <img 
                       src={lecturer.image} 
                       alt={lecturer.name} 
-                      className="w-16 h-16 rounded-full object-cover border border-gray-200 shadow-inner" 
+                      className="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-md mb-4" 
                     />
                   ) : (
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-college-blue text-2xl font-bold">
+                    <div className="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center text-college-blue text-4xl font-bold mb-4 shadow-inner">
                       {lecturer.name.charAt(0)}
                     </div>
                   )}
-                  <div>
-                    <h3 className="text-xl font-bold text-college-blue">{lecturer.name}</h3>
-                    <p className="text-blue-600 font-semibold text-sm">{lecturer.profession}</p>
-                  </div>
+                  <h3 className="text-xl font-bold text-college-blue min-h-[56px] flex items-center justify-center px-2">{lecturer.name}</h3>
+                  <p className="text-blue-600 font-semibold text-sm mt-1">{lecturer.profession}</p>
                 </div>
                 
-                <div className="grid grid-cols-3 gap-4 text-sm">
-                  <div className="bg-gray-50 p-3">
-                    <p className="text-gray-500 uppercase text-[10px] font-bold tracking-wider mb-1">Age</p>
-                    <p className="font-bold text-gray-800">{lecturer.age} Years</p>
+                <div className="grid grid-cols-3 gap-3 text-sm w-full mt-auto">
+                  <div className="bg-gray-50 p-3 rounded">
+                    <p className="text-gray-500 uppercase text-[9px] font-bold tracking-wider mb-1">Age</p>
+                    <p className="font-bold text-gray-800 text-xs">{lecturer.age} Yrs</p>
                   </div>
-                  <div className="bg-gray-50 p-3">
-                    <p className="text-gray-500 uppercase text-[10px] font-bold tracking-wider mb-1">In College</p>
-                    <p className="font-bold text-gray-800">{lecturer.yearsInCollege} Years</p>
+                  <div className="bg-gray-50 p-3 rounded">
+                    <p className="text-gray-500 uppercase text-[9px] font-bold tracking-wider mb-1">In College</p>
+                    <p className="font-bold text-gray-800 text-xs">{lecturer.yearsInCollege} Yrs</p>
                   </div>
-                  <div className="bg-gray-50 p-3">
-                    <p className="text-gray-500 uppercase text-[10px] font-bold tracking-wider mb-1">Experience</p>
-                    <p className="font-bold text-gray-800">{lecturer.totalExperience} Years</p>
+                  <div className="bg-gray-50 p-3 rounded">
+                    <p className="text-gray-500 uppercase text-[9px] font-bold tracking-wider mb-1">Experience</p>
+                    <p className="font-bold text-gray-800 text-xs">{lecturer.totalExperience} Yrs</p>
                   </div>
                 </div>
               </div>
