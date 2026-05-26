@@ -175,7 +175,7 @@ export default function FacilityDetailPage() {
                   </h4>
                   <div className="w-full aspect-square overflow-hidden border border-gray-300 mb-4 bg-gray-50 flex items-center justify-center">
                     {associatedStaff.image ? (
-                      <img src={associatedStaff.image} alt={associatedStaff.name} className="w-full h-full object-cover" />
+                      <img src={associatedStaff.image} alt={associatedStaff.name} className="w-full h-full object-cover object-top" />
                     ) : (
                       <div className="w-full h-full bg-blue-100 flex items-center justify-center text-college-blue text-7xl font-bold">
                         {associatedStaff.name.charAt(0)}

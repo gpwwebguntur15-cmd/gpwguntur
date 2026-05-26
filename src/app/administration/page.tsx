@@ -124,7 +124,7 @@ export default function AdministrationPage() {
                     <img 
                       src={lecturer.image} 
                       alt={lecturer.name} 
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover object-top" 
                     />
                   ) : (
                     <div className="w-full h-full bg-blue-100 flex items-center justify-center text-college-blue text-7xl font-bold">

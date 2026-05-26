@@ -87,7 +87,7 @@ export default function Home() {
               <div className="absolute -top-6 -left-6 w-32 h-32 bg-blue-100 rounded-full opacity-50 z-0"></div>
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-pink-100 rounded-full opacity-50 z-0"></div>
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white w-full max-w-sm">
-                <img src={principal.photo} alt="Principal" className="w-full aspect-[4/5] object-cover" />
+                <img src={principal.photo} alt="Principal" className="w-full aspect-[4/5] object-cover object-top" />
               </div>
               <div className="mt-6 text-center z-10">
                 <p className="text-2xl font-bold text-college-blue uppercase tracking-tight">{principal.name}</p>
