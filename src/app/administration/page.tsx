@@ -98,7 +98,24 @@ export default function AdministrationPage() {
           {activeTab === "office" ? "Office Staff Directory" : "Hostel Staff & Wardens"}
         </h3>
 
-        {isLoaded && activeStaff.length > 0 ? (
+        {!isLoaded ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white p-6 border border-gray-200 shadow-sm rounded-lg animate-pulse flex flex-col justify-between h-[380px]">
+                <div>
+                  <div className="w-full aspect-square bg-gray-200 rounded mb-4"></div>
+                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mt-auto">
+                  <div className="h-10 bg-gray-200 rounded"></div>
+                  <div className="h-10 bg-gray-200 rounded"></div>
+                  <div className="h-10 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : activeStaff.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {activeStaff.map((lecturer) => (
               <div key={lecturer.id} className="bg-white p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col rounded-lg">
