@@ -164,20 +164,40 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4 md:px-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-college-blue mb-8 border-b-2 border-college-blue pb-2 inline-block uppercase">Latest Events</h2>
+            <h2 className="text-2xl font-bold text-college-blue mb-8 border-b-2 border-college-blue pb-2 inline-block uppercase">Latest Events & Achievements</h2>
             <div className="space-y-8">
-              {[1, 2].map((i) => (
-                <div key={i} className="flex gap-6 items-start group">
-                  <div className="bg-gray-100 p-4 text-center min-w-[100px] group-hover:bg-college-blue group-hover:text-white transition-colors">
-                    <p className="text-2xl font-bold">15</p>
-                    <p className="text-sm font-semibold uppercase">May</p>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Annual Technical Symposium 2026</h3>
-                    <p className="text-gray-600 leading-relaxed text-sm">Our students showcased innovative projects across various engineering disciplines, winning multiple awards for their creative solutions.</p>
-                  </div>
+              <div className="flex gap-6 items-start group">
+                <div className="bg-gray-100 p-4 text-center min-w-[100px] group-hover:bg-college-blue group-hover:text-white transition-colors font-bold">
+                  <p className="text-2xl">NBA</p>
+                  <p className="text-xs uppercase">Accredited</p>
                 </div>
-              ))}
+                <div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">NBA Accreditation for ECE Course</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">The Electronics and Communications Engineering Course is accredited by the National Board of Accreditation for a period of 3 years from 2023-24.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 items-start group">
+                <div className="bg-gray-100 p-4 text-center min-w-[100px] group-hover:bg-college-blue group-hover:text-white transition-colors font-bold">
+                  <p className="text-2xl">BEST</p>
+                  <p className="text-xs uppercase">Award</p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Best Placement Record at State Level</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">The Govt. Polytechnic for Women, Guntur is awarded with the BEST PLACEMENT RECORD at the State Level in the year 2023.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 items-start group">
+                <div className="bg-gray-100 p-4 text-center min-w-[100px] group-hover:bg-college-blue group-hover:text-white transition-colors font-bold">
+                  <p className="text-2xl">HOST</p>
+                  <p className="text-xs uppercase">Sports</p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">Inter Polytechnic Sports & Games Meet</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">The Institute successfully conducted the Inter Polytechnic Sports & Games Regional Meet for Girls in 2022-23 and 2023-24.</p>
+                </div>
+              </div>
             </div>
           </div>
           
