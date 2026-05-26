@@ -338,14 +338,7 @@ export default function AdminPage() {
     groupedLecturers[deptId].sort((a, b) => (a.sortOrder || 999) - (b.sortOrder || 999));
   });
 
-  const handleResetLocalStorage = () => {
-    if (confirm("Are you sure you want to clear all sandbox data in local storage? This will restore the default mock directory data.")) {
-      localStorage.removeItem("gpw_lecturers");
-      localStorage.removeItem("gpw_principal");
-      alert("Local sandbox storage cleared! Reloading...");
-      window.location.reload();
-    }
-  };
+
 
   const currentDepts = facultyCategory === "academic" ? academicDepts : administrativeDepts;
 
@@ -401,26 +394,10 @@ export default function AdminPage() {
           <div>
             <div className="flex items-center gap-4 mb-2">
               <h1 className="text-4xl font-bold text-college-blue uppercase tracking-tight">Admin Dashboard</h1>
-              {supabaseActive ? (
-                <span className="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Supabase Connected</span>
-              ) : (
-                <button 
-                  onClick={() => setShowConfigHelp(!showConfigHelp)}
-                  className="bg-amber-100 text-amber-800 hover:bg-amber-200 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider transition-colors cursor-pointer"
-                >
-                  ⚠ Sandbox Mode (Click Setup)
-                </button>
-              )}
             </div>
             <p className="text-gray-500 font-medium">Configure principal information, messages, photos, and faculty directories.</p>
           </div>
           <div className="flex gap-4">
-            <button 
-              onClick={handleResetLocalStorage}
-              className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded font-bold transition-all text-xs uppercase tracking-wider shadow-sm cursor-pointer"
-            >
-              Reset Sandbox Cache
-            </button>
             <Link href="/" className="bg-college-blue text-white px-6 py-3 rounded font-bold hover:bg-blue-850 transition-all text-xs uppercase tracking-wider shadow-md text-center">
               View Website
             </Link>

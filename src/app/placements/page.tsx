@@ -1,9 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { loadLecturersDb } from "@/lib/storage";
 
 export default function PlacementsPage() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const [tpo, setTpo] = useState<any>(null);
+
+  useEffect(() => {
+    async function getTpoDetails() {
+      try {
+        const list = await loadLecturersDb();
+        // The Head of Garment Technology in ADFT department is also the TPO
+        const tpoMember = list.find(l => l.dept === "adft" && l.profession.toLowerCase().includes("head"));
+        if (tpoMember) {
+          setTpo(tpoMember);
+        }
+      } catch (e) {
+        console.error("Failed to load TPO:", e);
+      }
+    }
+    getTpoDetails();
+  }, []);
 
   const stats = [
     { label: "Placement Rate", value: "85%" },
@@ -56,6 +74,46 @@ export default function PlacementsPage() {
 
       <div className="container mx-auto px-4 md:px-20 py-16">
         
+        {/* TPO Section */}
+        <div className="flex flex-col items-center mb-16">
+          <div className="bg-white p-8 border border-gray-200 shadow-sm rounded-lg flex flex-col items-center max-w-sm w-full text-center hover:shadow-md transition-shadow">
+            <h2 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">
+              Training & Placement Officer (TPO)
+            </h2>
+            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-blue-100 mb-6 bg-gray-50 flex items-center justify-center shadow-inner">
+              {tpo?.image ? (
+                <img 
+                  src={tpo.image} 
+                  alt={tpo.name} 
+                  className="w-full h-full object-cover object-top" 
+                />
+              ) : (
+                <div className="w-full h-full bg-blue-100 flex items-center justify-center text-college-blue text-5xl font-bold">
+                  {tpo?.name ? tpo.name.charAt(0) : "R"}
+                </div>
+              )}
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 leading-tight">
+                {tpo?.name || "R. Lokesh, B.E(Tex Tech)"}
+              </h3>
+              <p className="text-blue-600 font-semibold text-sm mt-1 uppercase tracking-wider">
+                Head of Garment Technology & TPO
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4 text-xs w-full mt-6 pt-6 border-t border-gray-100 text-gray-500">
+              <div>
+                <span className="block font-bold text-gray-700 text-sm">34+ Yrs</span>
+                Total Experience
+              </div>
+              <div>
+                <span className="block font-bold text-gray-700 text-sm">gpwwebguntur15@gmail.com</span>
+                Contact Email
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Placement Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {stats.map((s, i) => (
