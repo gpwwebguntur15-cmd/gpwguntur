@@ -4,8 +4,9 @@ import "./globals.css";
 import Header from "./components/Header";
 
 export const metadata: Metadata = {
-  title: "Government Polytechnic For Women, Guntur",
-  description: "Official College Portal - Excellence in Technical Education",
+  title: "Government Polytechnic For Women (GPW), Guntur",
+  description: "Official College Portal of Government Polytechnic For Women (GPW), Guntur. Offering diploma engineering and non-engineering courses, placement statistics, admissions, administration, and campus facilities.",
+  keywords: ["GPW Guntur", "Government Polytechnic For Women Guntur", "gpwguntur.com", "polytechnic colleges in Guntur", "GPW", "Government Polytechnic Guntur"],
 };
 
 export default function RootLayout({
