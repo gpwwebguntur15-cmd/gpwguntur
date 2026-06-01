@@ -29,9 +29,11 @@ export default function Header() {
       <div className="container mx-auto px-4 md:px-20 py-4 flex justify-between items-center">
         {/* Logo and Title */}
         <Link href="/" onClick={closeMenu} className="flex items-center gap-4">
-          <div className="bg-college-blue p-2 rounded-full text-white font-bold text-xl w-12 h-12 flex items-center justify-center shrink-0">
-            GPW
-          </div>
+          <img 
+            src="/images/logo.jpg" 
+            alt="GPW Guntur Logo" 
+            className="w-12 h-12 object-contain rounded-full border border-gray-200"
+          />
           <div>
             <h1 className="text-lg md:text-xl font-bold text-college-blue leading-tight uppercase">
               Government Polytechnic For Women
