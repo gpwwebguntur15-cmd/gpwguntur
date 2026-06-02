@@ -28,7 +28,7 @@ export default function EventsPage() {
       longDesc: "Government Polytechnic for Women, Guntur hosted its Annual Alumni Meet, bringing together past graduates to share their professional journeys and inspire current students. A major highlight of the event was the felicitation of distinguished alumni and retired senior faculty members for their outstanding contributions to the institution. The alumni association also gathered to contribute resources and discuss mentorship opportunities for the engineering students, concluding with a memorable cultural gathering.",
       images: [
         {
-          src: "/images/alumni_meet_2.jpg",
+          src: "/images/alumni_meet_new_a.jpg",
           caption: "Felicitation Ceremony: Honoring senior faculty members with traditional shawls and mementos."
         },
         {
@@ -36,8 +36,8 @@ export default function EventsPage() {
           caption: "Guest of Honor: Honoring alumni achievements during the presentation ceremony."
         },
         {
-          src: "/images/alumni_meet_1.jpg",
-          caption: "Alumni Association Contribution: Alumni members donating resources to support institutional development."
+          src: "/images/alumni_meet_new_b.jpg",
+          caption: "Honoring Teachers: Celebrating retired faculty during the Alumni Gathering."
         },
         {
           src: "/images/alumni_meet_8.jpg",
