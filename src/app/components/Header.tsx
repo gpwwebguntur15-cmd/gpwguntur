@@ -21,6 +21,7 @@ export default function Header() {
     { href: "/administration", label: "ADMINISTRATION" },
     { href: "/facilities", label: "FACILITIES" },
     { href: "/placements", label: "PLACEMENTS" },
+    { href: "/events", label: "EVENTS" },
     { href: "/contact", label: "CONTACT" },
   ];
 
