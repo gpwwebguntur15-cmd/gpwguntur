@@ -355,28 +355,28 @@ export default function FacilityDetailPage() {
               Facility Gallery & Infrastructure
             </h3>
             <div className="w-20 h-1 bg-blue-600 mb-8"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-12">
               {detail.gallery.map((item, index) => (
-                <div key={index} className="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col p-6">
+                <div key={index} className="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col p-8">
                   {item.title && (
-                    <h4 className="font-bold text-lg text-college-blue mb-2 uppercase tracking-tight">
+                    <h4 className="font-bold text-xl text-college-blue mb-2 uppercase tracking-tight">
                       {item.title}
                     </h4>
                   )}
                   {item.intro && (
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                    <p className="text-gray-600 text-base leading-relaxed mb-6">
                       {item.intro}
                     </p>
                   )}
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200 rounded-lg mb-4">
+                  <div className="w-full aspect-[16/9] md:aspect-[21/9] max-h-[480px] overflow-hidden bg-gray-200 rounded-lg mb-6 shadow-inner">
                     <img 
                       src={item.src} 
                       alt={item.title || "Gallery Image"} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                     />
                   </div>
                   {item.desc && (
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-700 text-sm leading-relaxed bg-white p-4 border-l-4 border-college-blue rounded shadow-sm">
                       {item.desc}
                     </p>
                   )}
