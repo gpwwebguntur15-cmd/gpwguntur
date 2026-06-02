@@ -40,6 +40,36 @@ export default function PlacementsPage() {
       src: "/images/placement_drive_2.png",
       alt: "Principal and company representatives at the placement drive venue",
       caption: "Distinguished faculty and corporate placement coordinators during the recruitment drive launch."
+    },
+    {
+      src: "/images/placement_event_1.jpg",
+      alt: "Address by officials during Job Achiever's Day",
+      caption: "Job Achiever's Day: Dignitaries and principal addressing students on the stage."
+    },
+    {
+      src: "/images/placement_event_2.jpg",
+      alt: "Large group of selected students presenting placement folders",
+      caption: "Proud Achievers: Successful graduates displaying their selection letters at the placement cell."
+    },
+    {
+      src: "/images/placement_event_3.jpg",
+      alt: "Student receiving appointment letter on stage",
+      caption: "Felicitation Ceremony: Distinguished guests presenting the job offer letter to a selected candidate."
+    },
+    {
+      src: "/images/placement_event_4.jpg",
+      alt: "Group of placed students celebrating success",
+      caption: "Future Engineers: Placed candidates celebrating career selection during the college event."
+    },
+    {
+      src: "/images/placement_event_5.jpg",
+      alt: "Student receiving appointment letter on stage",
+      caption: "Felicitation Ceremony: Presentation of offer letter to selected engineering student."
+    },
+    {
+      src: "/images/placement_event_6.jpg",
+      alt: "Group of placed students celebrating success",
+      caption: "Proud Achievers: Group photo of successful candidates at Job Achiever's Day."
     }
   ];
 
@@ -152,7 +182,7 @@ export default function PlacementsPage() {
 
           {/* Drive Photo Gallery */}
           <h3 className="text-lg font-bold text-college-blue uppercase mb-6 border-b pb-2">Recruitment Drive Gallery</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {driveImages.map((img, i) => (
               <div key={i} className="group cursor-pointer" onClick={() => setSelectedImg(img.src)}>
                 <div className="overflow-hidden rounded-lg shadow-sm border border-gray-200 bg-gray-50 aspect-[16/10] relative">

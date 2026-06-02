@@ -104,7 +104,14 @@ const facilityDetails: Record<string, {
       "Backstage green rooms and dedicated audio-control booth."
     ],
     timing: "Available for scheduled academic events",
-    gallery: [{ src: "/images/media__1778908989802.jpg", title: "Seminar Hall" }]
+    gallery: [
+      {
+        src: "/images/facility_seminar_hall.jpg",
+        title: "Seminar Hall & Multipurpose Auditorium",
+        intro: "A state-of-the-art auditorium built to hold large student gatherings, national workshops, and campus recruitment drives.",
+        desc: "Key Learning & Features: Features a seating capacity of 300+ guests, top-grade professional audio-visual sound systems, dual high-definition projection screens for visual clarity from all angles, a spacious main stage, backstage green rooms, and a dedicated sound/audio-control booth."
+      }
+    ]
   },
   sports: {
     details: "We believe in the holistic development of our students. The sports department regularly conducts training camps and encourages participation in inter-polytechnic and state-level tournaments.",
@@ -200,7 +207,7 @@ export default function FacilityDetailPage() {
                 <p className="text-gray-700 font-semibold">{detail.timing}</p>
               </div>
 
-              {id !== "library" && id !== "labs" && (
+              {id !== "library" && id !== "labs" && id !== "seminar-hall" && (
                 <>
                   <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Key Features & Facilities</h3>
                   <ul className="space-y-4">

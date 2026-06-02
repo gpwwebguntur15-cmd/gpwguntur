@@ -78,6 +78,24 @@ export default function EventsPage() {
           caption: "Felicitation Stage: Celebrating student accomplishments during the library recognition meet."
         }
       ]
+    },
+    {
+      id: "polycet-coaching-2026",
+      title: "Free POLYCET Coaching Program",
+      date: "April 20, 2026",
+      category: "Coaching",
+      desc: "Special guidance and coaching sessions conducted by the college faculty for POLYCET aspirants.",
+      longDesc: "Government Polytechnic for Women, Guntur conducted a special Free POLYCET Coaching Program to guide and prepare high school girls for the Polytechnic Common Entrance Test (POLYCET). Experienced faculty members offered comprehensive instruction, problem-solving techniques, and study materials in mathematics, physics, and chemistry. The initiative aims to help young aspiring students from diverse backgrounds secure engineering admissions.",
+      images: [
+        {
+          src: "/images/event_polycet_coaching_1.jpg",
+          caption: "Expert Guidance: Faculty members conducting classroom lecture and concept explanation."
+        },
+        {
+          src: "/images/event_polycet_coaching_2.jpg",
+          caption: "Intensive Practice: Students focusing on subject review and preparation worksheets."
+        }
+      ]
     }
   ];
 
