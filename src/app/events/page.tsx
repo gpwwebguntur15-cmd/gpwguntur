@@ -52,52 +52,6 @@ export default function EventsPage() {
           caption: "Token of Respect: Presenting shawls to retired professors during the ceremony."
         }
       ]
-    },
-    {
-      id: "clean-green-2026",
-      title: "Swachh Andhra - Haritha Andhra Campaign",
-      date: "June 2, 2026",
-      category: "Environment",
-      desc: "Comprehensive tree-planting and cleanliness awareness drive held on campus.",
-      longDesc: "Under the prestigious state directive of 'Swachh Andhra - Haritha Andhra', the Government Polytechnic for Women, Guntur hosted a campus-wide cleanliness and green plantation drive. The event commenced with an interactive seminar in the college assembly hall, focusing on solid waste management, plastic elimination, and ecological stewardship. Following the assembly, students and faculty gathered to plant saplings across the campus lawns. The Principal and department heads inaugurated the plantation, encouraging every student to nurture and care for the campus greens.",
-      images: [
-        {
-          src: "/images/event_clean_green_2.png",
-          caption: "Plantation Ceremony: Principal and faculty members presenting a green sapling during the event."
-        },
-        {
-          src: "/images/event_clean_green_1.png",
-          caption: "Environmental Seminar: Students gathering in the seminar hall for ecological awareness lectures."
-        }
-      ]
-    },
-    {
-      id: "tech-fest-2026",
-      title: "Pragnya - National Technical Symposium",
-      date: "March 15, 2026",
-      category: "Academic",
-      desc: "Annual inter-college symposium featuring paper presentations and code-combat challenges.",
-      longDesc: "Pragnya 2026 brought together aspiring female technicians and engineers from across various polytechnic institutions in Andhra Pradesh. The event featured technical paper presentations, model exhibitions, Web Design challenges, and coding competitions. Eminent industry speakers delivered keynotes on Artificial Intelligence and the future of Polytechnic careers in engineering.",
-      images: [
-        {
-          src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop",
-          caption: "Symposium Keynote: Guest speaker addressing the students during the opening ceremony."
-        }
-      ]
-    },
-    {
-      id: "sports-meet-2026",
-      title: "Annual Sports & Athletic Meet",
-      date: "January 28, 2026",
-      category: "Sports",
-      desc: "Intra-college sports championship highlighting athletics, volleyball, and indoor games.",
-      longDesc: "The annual sports day celebrated physical fitness and team spirit among the students. Events included 100m, 200m track sprints, long jump, volleyball championships, and chess tournaments. Winners were awarded trophies and merit certificates by the chief guest, promoting regular physical activity alongside academic studies.",
-      images: [
-        {
-          src: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1000&auto=format&fit=crop",
-          caption: "Track Events: Students competing in the sprint events during the sports meet."
-        }
-      ]
     }
   ];
 
