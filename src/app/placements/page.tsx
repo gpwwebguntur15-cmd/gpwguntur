@@ -47,17 +47,12 @@ export default function PlacementsPage() {
     {
       src: "/images/placement_news_1.png",
       title: "Eenadu News Coverage",
-      desc: "Detailed report of the placement drive highlighting the ₹25k salary packages."
+      desc: "Detailed report of the campus placement drive where 55 students secured positions."
     },
     {
       src: "/images/placement_news_2.png",
-      title: "Sakshi E-Paper Feature",
-      desc: "Coverage emphasizing 55 selections in campus interviews."
-    },
-    {
-      src: "/images/placement_news_3.png",
       title: "ABN Andhra Jyothi Coverage",
-      desc: "State-wide press recognition of the successful drive."
+      desc: "Coverage highlighting the 55 student selections with monthly packages of ₹25,000."
     }
   ];
 
@@ -189,7 +184,7 @@ export default function PlacementsPage() {
 
           {/* News Paper Clippings Section */}
           <h3 className="text-lg font-bold text-college-blue uppercase mb-6 border-b pb-2">Press & Newspaper Coverage</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {newsImages.map((img, i) => (
               <div key={i} className="group cursor-pointer" onClick={() => setSelectedImg(img.src)}>
                 <div className="overflow-hidden rounded-lg border border-gray-200 bg-white aspect-[9/16] relative flex items-center justify-center p-2 shadow-sm">
