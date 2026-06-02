@@ -43,18 +43,6 @@ export default function PlacementsPage() {
     }
   ];
 
-  const newsImages = [
-    {
-      src: "/images/placement_news_1.png",
-      title: "Eenadu News Coverage",
-      desc: "Detailed report of the campus placement drive where 55 students secured positions."
-    },
-    {
-      src: "/images/placement_news_2.png",
-      title: "ABN Andhra Jyothi Coverage",
-      desc: "Coverage highlighting the 55 student selections with monthly packages of ₹25,000."
-    }
-  ];
 
   return (
     <div className="bg-gray-50 min-h-screen pb-20">
@@ -178,29 +166,6 @@ export default function PlacementsPage() {
                   </div>
                 </div>
                 <p className="text-xs text-gray-500 mt-3 italic leading-relaxed text-center px-4">{img.caption}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* News Paper Clippings Section */}
-          <h3 className="text-lg font-bold text-college-blue uppercase mb-6 border-b pb-2">Press & Newspaper Coverage</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {newsImages.map((img, i) => (
-              <div key={i} className="group cursor-pointer" onClick={() => setSelectedImg(img.src)}>
-                <div className="overflow-hidden rounded-lg border border-gray-200 bg-white aspect-[9/16] relative flex items-center justify-center p-2 shadow-sm">
-                  <img 
-                    src={img.src} 
-                    alt={img.title} 
-                    className="max-h-full max-w-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="bg-white text-college-blue px-4 py-2 rounded-full font-bold text-xs shadow-lg uppercase tracking-wider">Read Article 🔍</span>
-                  </div>
-                </div>
-                <div className="mt-3 text-center">
-                  <h4 className="font-bold text-gray-800 text-sm">{img.title}</h4>
-                  <p className="text-xs text-gray-500 mt-1">{img.desc}</p>
-                </div>
               </div>
             ))}
           </div>
