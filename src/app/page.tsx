@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   const heroImages = [
-    { src: "/images/media__1778908869443.jpg", title: "Empowering Women through Education", sub: "Government Polytechnic For Women, Guntur" },
+    { src: "/images/academic_block.jpg", title: "Empowering Women through Education", sub: "Government Polytechnic For Women, Guntur" },
     { src: "/images/media__1778908989802.jpg", title: "Excellence Since 1967", sub: "A Legacy of Academic and Technical Success" },
   ];
 

@@ -7,11 +7,17 @@ import { loadLecturersDb } from "@/lib/storage";
 import { Lecturer } from "@/lib/data";
 import { facilities } from "../page";
 
+interface GalleryItem {
+  src: string;
+  title?: string;
+  desc?: string;
+}
+
 const facilityDetails: Record<string, {
   details: string;
   features: string[];
   timing: string;
-  gallery: string[];
+  gallery: GalleryItem[];
 }> = {
   library: {
     details: "The Central Library is the heart of academic activities. It supports the teaching, research, and extension programs of the college. Our collection is updated annually to include the latest research materials, reference books, and technical literature.",
@@ -23,7 +29,7 @@ const facilityDetails: Record<string, {
       "Dedicated computer terminal section for e-learning."
     ],
     timing: "8:00 AM to 6:00 PM (All working days)",
-    gallery: ["/images/media__1778908869443.jpg"]
+    gallery: [{ src: "/images/media__1778908869443.jpg", title: "Central Library" }]
   },
   labs: {
     details: "Each engineering and science department has state-of-the-art laboratory facilities designed to provide hands-on experience and bridge the gap between theory and practical applications. All labs are managed by highly qualified technical assistants.",
@@ -35,7 +41,18 @@ const facilityDetails: Record<string, {
       "General Section: Well-equipped physics and chemistry labs for foundational training."
     ],
     timing: "9:00 AM to 5:00 PM",
-    gallery: ["/images/media__1778908869443.jpg"]
+    gallery: [
+      {
+        src: "/images/pharmaceutics_lab.png",
+        title: "Pharmaceutics Laboratory",
+        desc: "Equipped for the formulation, preparation, and dispensing of various dosage forms (tablets, capsules, ointments, emulsion/suspension, parentals, and cosmetic formulations), serving as the foundational practical arena for core pharmacy training."
+      },
+      {
+        src: "/images/anatomy_pharmacology_lab.png",
+        title: "Human Anatomy & Physiology, Pharmacognosy and Pharmacology Laboratory",
+        desc: "A multidisciplinary space optimized for microscopic studies, identifying crude drugs of plant/animal origin, exploring physiological mechanisms, analyzing histological slides, and analyzing the pharmacological actions of medicinal compounds."
+      }
+    ]
   },
   classrooms: {
     details: "Our digital and smart classrooms are designed to facilitate modern teaching methodologies. With interactive technology, students gain a richer, more collaborative learning experience.",
@@ -47,7 +64,7 @@ const facilityDetails: Record<string, {
       "Integrated audio-visual systems for hybrid webinars and guest lectures."
     ],
     timing: "9:00 AM to 4:30 PM",
-    gallery: ["/images/media__1778908989802.jpg"]
+    gallery: [{ src: "/images/media__1778908989802.jpg", title: "Smart Classroom" }]
   },
   "seminar-hall": {
     details: "The college has a modern, fully air-conditioned Seminar Hall that hosts regular guest lectures, student presentations, workshops, cultural events, and placement drives.",
@@ -59,7 +76,7 @@ const facilityDetails: Record<string, {
       "Backstage green rooms and dedicated audio-control booth."
     ],
     timing: "Available for scheduled academic events",
-    gallery: ["/images/media__1778908989802.jpg"]
+    gallery: [{ src: "/images/media__1778908989802.jpg", title: "Seminar Hall" }]
   },
   sports: {
     details: "We believe in the holistic development of our students. The sports department regularly conducts training camps and encourages participation in inter-polytechnic and state-level tournaments.",
@@ -71,7 +88,7 @@ const facilityDetails: Record<string, {
       "Annual sports meet with active participation from all departments."
     ],
     timing: "6:00 AM to 8:30 AM & 4:30 PM to 6:30 PM",
-    gallery: ["/images/media__1778908869443.jpg"]
+    gallery: [{ src: "/images/media__1778908869443.jpg", title: "Sports Fields" }]
   },
   hostel: {
     details: "Our hostel facility offers a safe, secure, and comfortable 'home away from home' for female students. Located inside the college campus, it provides 24/7 security and a serene environment conducive to studies.",
@@ -83,7 +100,7 @@ const facilityDetails: Record<string, {
       "Common recreation room with television, newspapers, and indoor games."
     ],
     timing: "24 Hours (Strict gate closing at 6:30 PM)",
-    gallery: ["/images/media__1778908882280.jpg"]
+    gallery: [{ src: "/images/media__1778908882280.jpg", title: "Hostel Facility" }]
   }
 };
 
@@ -164,6 +181,99 @@ export default function FacilityDetailPage() {
                   </li>
                 ))}
               </ul>
+
+              {id === "library" && (
+                <div className="mt-12 bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                  <div className="bg-college-blue text-white px-6 py-4 font-bold text-base uppercase tracking-wider">
+                    Library Data at a Glance
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs">
+                          <th className="px-6 py-3 font-bold text-gray-700 uppercase w-16">SI. No</th>
+                          <th className="px-6 py-3 font-bold text-gray-700 uppercase">Description</th>
+                          <th className="px-6 py-3 font-bold text-gray-700 uppercase">Number / Details</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100 text-gray-600">
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5 font-semibold">1</td>
+                          <td className="px-6 py-3.5 font-semibold text-gray-800">Total No. of Books</td>
+                          <td className="px-6 py-3.5 font-bold text-college-blue">6,755</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors bg-gray-50/20">
+                          <td className="px-6 py-3.5">2</td>
+                          <td className="px-6 py-3.5">No. of Books procured under Govt. Head, Library special fee fund, etc.</td>
+                          <td className="px-6 py-3.5 font-semibold">5,404</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5">3</td>
+                          <td className="px-6 py-3.5">
+                            <span className="font-semibold text-gray-800 block mb-1">Procured Under Book Bank Scheme:</span>
+                            <ul className="list-disc pl-5 space-y-1 text-xs text-gray-500">
+                              <li>S.C. Book Bank: <strong className="text-gray-700">600</strong></li>
+                              <li>S.T. Book Bank: <strong className="text-gray-700">304</strong></li>
+                              <li>Sponsored Books: <strong className="text-gray-700">387</strong></li>
+                            </ul>
+                          </td>
+                          <td className="px-6 py-3.5 font-semibold">1,291</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors bg-gray-50/20">
+                          <td className="px-6 py-3.5">4</td>
+                          <td className="px-6 py-3.5 font-semibold text-gray-800">Total No. of Titles</td>
+                          <td className="px-6 py-3.5 font-semibold">1,708</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5">5</td>
+                          <td className="px-6 py-3.5">No. of Newspapers</td>
+                          <td className="px-6 py-3.5 font-semibold">02</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors bg-gray-50/20">
+                          <td className="px-6 py-3.5">6</td>
+                          <td className="px-6 py-3.5">No. of Journals / Magazines</td>
+                          <td className="px-6 py-3.5 font-semibold">08</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5">7</td>
+                          <td className="px-6 py-3.5">Library System Adopted</td>
+                          <td className="px-6 py-3.5 font-semibold">Open Access System</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors bg-gray-50/20">
+                          <td className="px-6 py-3.5">8</td>
+                          <td className="px-6 py-3.5">Library Automation</td>
+                          <td className="px-6 py-3.5 font-semibold">MIS (Management Information System)</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5">9</td>
+                          <td className="px-6 py-3.5">No. of Desktop Computers</td>
+                          <td className="px-6 py-3.5 font-semibold">07</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors bg-gray-50/20">
+                          <td className="px-6 py-3.5">10</td>
+                          <td className="px-6 py-3.5">Internet</td>
+                          <td className="px-6 py-3.5 font-semibold">BSNL Fibre Net</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5">11</td>
+                          <td className="px-6 py-3.5">Wi-Fi</td>
+                          <td className="px-6 py-3.5 font-semibold">100 Mbps</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors bg-gray-50/20">
+                          <td className="px-6 py-3.5">12</td>
+                          <td className="px-6 py-3.5">Email</td>
+                          <td className="px-6 py-3.5 font-semibold text-blue-600">librariangpwguntur@gmail.com</td>
+                        </tr>
+                        <tr className="hover:bg-gray-50/50 transition-colors">
+                          <td className="px-6 py-3.5">13</td>
+                          <td className="px-6 py-3.5 font-semibold text-gray-800">Library Timings</td>
+                          <td className="px-6 py-3.5 font-bold text-green-700">9:00 AM to 5:30 PM</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar with Staff Profile Card */}
@@ -205,6 +315,43 @@ export default function FacilityDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Gallery Section */}
+        {detail.gallery && detail.gallery.length > 0 && (
+          <div className="bg-white p-8 md:p-12 shadow-sm border border-gray-100 rounded-lg">
+            <h3 className="text-2xl font-bold text-college-blue mb-4 uppercase tracking-tight">
+              Facility Gallery & Infrastructure
+            </h3>
+            <div className="w-20 h-1 bg-blue-600 mb-8"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {detail.gallery.map((item, index) => (
+                <div key={index} className="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200">
+                    <img 
+                      src={item.src} 
+                      alt={item.title || "Gallery Image"} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  {(item.title || item.desc) && (
+                    <div className="p-6">
+                      {item.title && (
+                        <h4 className="font-bold text-lg text-college-blue mb-2 uppercase">
+                          {item.title}
+                        </h4>
+                      )}
+                      {item.desc && (
+                        <p className="text-gray-600 text-sm leading-relaxed">
+                          {item.desc}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
