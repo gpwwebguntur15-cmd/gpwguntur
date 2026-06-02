@@ -123,7 +123,50 @@ const facilityDetails: Record<string, {
       "Annual sports meet with active participation from all departments."
     ],
     timing: "6:00 AM to 8:30 AM & 4:30 PM to 6:30 PM",
-    gallery: [{ src: "/images/media__1778908869443.jpg", title: "Sports Fields" }]
+    gallery: [
+      {
+        src: "/images/facility_sports_3.jpg",
+        title: "Inaugural Sports March Past",
+        intro: "Selected students participating in the formal march past during the 28th Inter-Polytechnic Sports & Games Meet (IPSGM).",
+        desc: "Key Learning & Features: Students march in uniform with discipline, building leadership, cooperation, and school pride under physical education instructions."
+      },
+      {
+        src: "/images/facility_sports_4.jpg",
+        title: "State Level Sports Meet Stage Felicitation",
+        intro: "Our college team being felicitated on stage by high-ranking officials and receiving championship trophies.",
+        desc: "Key Learning & Features: Celebrating team achievements in volleyball, athletics, and table tennis. The students secured overall championship titles at the regional level."
+      },
+      {
+        src: "/images/facility_sports_7.jpg",
+        title: "Individual Excellence Awards Presentation",
+        intro: "Our college athletes receiving merit trophies on stage with the Principal and guests under a canopy.",
+        desc: "Key Learning & Features: Recognizing outstanding athletic performance and physical dedication during the college sports awards session."
+      },
+      {
+        src: "/images/facility_sports_1.jpg",
+        title: "Newspaper Coverage: Physical and Mental Fitness",
+        intro: "Press clipping from Sakshi newspaper reporting on the Guntur District Inter-Polytechnic Sports and Games Meet.",
+        desc: "Key Learning & Features: Highlights the speech by regional directors on how sports builds discipline, focus, and physical health alongside academic excellence."
+      },
+      {
+        src: "/images/facility_sports_2.jpg",
+        title: "Newspaper Coverage: Championship Success",
+        intro: "Regional news coverage celebrating the Government Polytechnic for Women overall championship win.",
+        desc: "Key Learning & Features: Detailed reporting of individual student achievers in shot put, long jump, chess, table tennis, and running races, qualifying them for state-level contests."
+      },
+      {
+        src: "/images/facility_sports_5.jpg",
+        title: "Newspaper Coverage: Women's Sports Meet Launch",
+        intro: "Press clipping from Prabhata Vartha newspaper reporting on the launch of Guntur District Inter-Polytechnic Women's Sports Meet.",
+        desc: "Key Learning & Features: Joint Collector and principal launching the event and encouraging students to participate in sports for healthy growth."
+      },
+      {
+        src: "/images/facility_sports_6.jpg",
+        title: "Newspaper Coverage: Overall Champion Team photo",
+        intro: "News article displaying our college team photo with the principal and physical education staff.",
+        desc: "Key Learning & Features: Celebrating the collaborative spirit and athletic excellence that brought the overall championship trophy to our college."
+      }
+    ]
   },
   hostel: {
     details: "Our hostel facility offers a safe, secure, and comfortable 'home away from home' for female students. Located inside the college campus, it provides 24/7 security and a serene environment conducive to studies.",
@@ -207,7 +250,7 @@ export default function FacilityDetailPage() {
                 <p className="text-gray-700 font-semibold">{detail.timing}</p>
               </div>
 
-              {id !== "library" && id !== "labs" && id !== "seminar-hall" && (
+              {id !== "library" && id !== "labs" && id !== "seminar-hall" && id !== "sports" && (
                 <>
                   <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Key Features & Facilities</h3>
                   <ul className="space-y-4">

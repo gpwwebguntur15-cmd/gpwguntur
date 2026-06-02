@@ -96,6 +96,24 @@ export default function EventsPage() {
           caption: "Intensive Practice: Students focusing on subject review and preparation worksheets."
         }
       ]
+    },
+    {
+      id: "swachh-andhra-2026",
+      title: "Swachh Andhra Cleanliness Campaign",
+      date: "March 12, 2026",
+      category: "Social Service",
+      desc: "Cleanliness drive and hygiene awareness campaign conducted by NSS units and volunteers.",
+      longDesc: "Government Polytechnic for Women, Guntur organized a cleanliness campaign under the Swachh Andhra - Swachh Bharat initiative. Volunteers, students, and staff members cleaned the campus surroundings and neighboring streets. A mass cleanliness pledge was administered to students by the Principal, highlighting the importance of community hygiene, waste segregation, and environmental sustainability.",
+      images: [
+        {
+          src: "/images/event_swachh_andhra_1.jpg",
+          caption: "Community Service: Faculty members and student volunteers carrying out a clean-up drive."
+        },
+        {
+          src: "/images/event_swachh_andhra_2.jpg",
+          caption: "Cleanliness Pledge: Students and staff taking a mass pledge to maintain hygiene in their surroundings."
+        }
+      ]
     }
   ];
 
