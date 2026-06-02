@@ -20,6 +20,40 @@ export default function EventsPage() {
 
   const eventsList: CampusEvent[] = [
     {
+      id: "alumni-meet-2026",
+      title: "Annual Alumni Meet & Felicitation Ceremony",
+      date: "May 10, 2026",
+      category: "Alumni",
+      desc: "Distinguished alumni gathering to share experiences, support engineering students, and honor teachers.",
+      longDesc: "Government Polytechnic for Women, Guntur hosted its Annual Alumni Meet, bringing together past graduates to share their professional journeys and inspire current students. A major highlight of the event was the felicitation of distinguished alumni and retired senior faculty members for their outstanding contributions to the institution. The alumni association also gathered to contribute resources and discuss mentorship opportunities for the engineering students, concluding with a memorable cultural gathering.",
+      images: [
+        {
+          src: "/images/alumni_meet_2.jpg",
+          caption: "Felicitation Ceremony: Honoring senior faculty members with traditional shawls and mementos."
+        },
+        {
+          src: "/images/alumni_meet_5.jpg",
+          caption: "Guest of Honor: Honoring alumni achievements during the presentation ceremony."
+        },
+        {
+          src: "/images/alumni_meet_1.jpg",
+          caption: "Alumni Association Contribution: Alumni members donating resources to support institutional development."
+        },
+        {
+          src: "/images/alumni_meet_8.jpg",
+          caption: "Alumni Address: Former graduates sharing career insights and industry wisdom with students."
+        },
+        {
+          src: "/images/alumni_meet_6.jpg",
+          caption: "Felicitation Ceremony: Faculty expressing gratitude to our guest of honor."
+        },
+        {
+          src: "/images/alumni_meet_7.jpg",
+          caption: "Token of Respect: Presenting shawls to retired professors during the ceremony."
+        }
+      ]
+    },
+    {
       id: "clean-green-2026",
       title: "Swachh Andhra - Haritha Andhra Campaign",
       date: "June 2, 2026",
@@ -112,7 +146,13 @@ export default function EventsPage() {
                     Event Gallery & Media
                   </h3>
                   
-                  <div className={`grid grid-cols-1 ${event.images.length > 1 ? "md:grid-cols-2" : "max-w-2xl"} gap-8`}>
+                  <div className={`grid grid-cols-1 ${
+                    event.images.length === 1 
+                      ? "max-w-2xl" 
+                      : event.images.length === 2 
+                        ? "md:grid-cols-2" 
+                        : "md:grid-cols-3"
+                  } gap-8`}>
                     {event.images.map((img, index) => (
                       <div 
                         key={index} 
