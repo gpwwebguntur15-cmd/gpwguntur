@@ -10,6 +10,7 @@ import { facilities } from "../page";
 interface GalleryItem {
   src: string;
   title?: string;
+  intro?: string;
   desc?: string;
 }
 
@@ -33,22 +34,26 @@ const facilityDetails: Record<string, {
       {
         src: "/images/library_digital_section_1.png",
         title: "Digital Library & E-Learning Center",
-        desc: "Equipped with high-performance desktop computers and high-speed BSNL fibre internet for accessing digital books, online journals, and education portals."
+        intro: "A modern internet-enabled space designed to provide students access to virtual learning resources, e-journals, and technical databases.",
+        desc: "Equipped with high-performance desktop systems connected via high-speed 100 Mbps BSNL Fibre Net. Students can access international journal databases, online lecture series, and the DELNET portal for reference."
       },
       {
         src: "/images/library_digital_section_3.png",
         title: "Computer Terminals & Internet Access",
-        desc: "A dedicated computing space enabling students to perform online research, academic projects, and software-based training courses."
+        intro: "A dedicated computing section built for students to carry out literature reviews, academic research, and project compilation.",
+        desc: "Provides hands-on access to academic software, presentation tools, database searching, and online certificate courses under the supervision of qualified library staff."
       },
       {
         src: "/images/library_display_1.png",
         title: "Magazine & Journal Display Area",
-        desc: "Interactive carousel displays featuring national/international journals, engineering periodicals, daily newspapers, and student publications."
+        intro: "An interactive periodicals corner designed to display the latest updates in technical journals, national newsletters, and career publications.",
+        desc: "Features dedicated newspaper stands and magazine carousels housing national and international journals, technology reviews, weekly circulars, and regional newspapers."
       },
       {
         src: "/images/library_display_2.jpg",
         title: "Current Affairs & Periodical Reading",
-        desc: "Students reading daily newsletters, technology magazines, and career guidance journals to stay updated with general knowledge."
+        intro: "An open, comfortable reading zone promoting general knowledge, research habits, and career preparation.",
+        desc: "Students can refer to competitive examination magazines, employment news, science bulletins, and daily current affairs updates in a quiet study environment."
       }
     ]
   },
@@ -66,12 +71,14 @@ const facilityDetails: Record<string, {
       {
         src: "/images/pharmaceutics_lab.png",
         title: "Pharmaceutics Laboratory",
-        desc: "Equipped for the formulation, preparation, and dispensing of various dosage forms (tablets, capsules, ointments, emulsion/suspension, parentals, and cosmetic formulations), serving as the foundational practical arena for core pharmacy training."
+        intro: "The Pharmaceutics Laboratory is a vital practical hub designed for student training in core pharmaceutical formulations, providing the foundational arena for pharmacy practice.",
+        desc: "Key Learning & Equipments: Hands-on training in the formulation, preparation, and dispensing of various dosage forms (tablets, capsules, ointments, emulsions, suspensions, parenterals, and cosmetics). Equipped with dissolution test apparatus, tablet punching machines, chemical balances, and distillation units."
       },
       {
         src: "/images/anatomy_pharmacology_lab.png",
         title: "Human Anatomy & Physiology, Pharmacognosy and Pharmacology Laboratory",
-        desc: "A multidisciplinary space optimized for microscopic studies, identifying crude drugs of plant/animal origin, exploring physiological mechanisms, analyzing histological slides, and analyzing the pharmacological actions of medicinal compounds."
+        intro: "This multidisciplinary laboratory provides comprehensive training in anatomical systems, plant-based drug identification, and experimental pharmacology.",
+        desc: "Key Learning & Equipments: Microscopic studies of plant tissues, morphological identification of crude drugs, analysis of histological slides, blood grouping, blood pressure measurement, and evaluation of drug actions on biological systems. Equipped with compound microscopes, human skeletal models, hemocytometers, and diagnostic kits."
       }
     ]
   },
@@ -352,9 +359,14 @@ export default function FacilityDetailPage() {
               {detail.gallery.map((item, index) => (
                 <div key={index} className="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col p-6">
                   {item.title && (
-                    <h4 className="font-bold text-lg text-college-blue mb-4 uppercase tracking-tight">
+                    <h4 className="font-bold text-lg text-college-blue mb-2 uppercase tracking-tight">
                       {item.title}
                     </h4>
+                  )}
+                  {item.intro && (
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      {item.intro}
+                    </p>
                   )}
                   <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200 rounded-lg mb-4">
                     <img 
