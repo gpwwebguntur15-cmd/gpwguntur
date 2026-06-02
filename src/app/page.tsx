@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div className="bg-white">
       {/* Hero Section / Slider */}
-      <section className="relative h-[600px] overflow-hidden bg-gray-950">
+      <section className="relative h-[380px] sm:h-[480px] md:h-[600px] overflow-hidden bg-gray-950">
         {heroImages.map((slide, idx) => (
           <div 
             key={idx}
@@ -74,19 +74,19 @@ export default function Home() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <div className="container mx-auto px-4 md:px-20">
+            <div className="container mx-auto px-6 md:px-20">
               <div className="max-w-2xl text-white">
-                <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-md">
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-6 leading-tight drop-shadow-md">
                   {slide.title}
                 </h2>
-                <p className="text-xl md:text-2xl mb-8 text-gray-200 drop-shadow-sm">
+                <p className="text-sm sm:text-lg md:text-2xl mb-5 sm:mb-8 text-gray-200 drop-shadow-sm leading-relaxed">
                   {slide.sub}
                 </p>
-                <div className="flex gap-4">
-                  <button className="bg-white text-college-blue px-8 py-3 rounded font-bold hover:bg-gray-100 transition-colors shadow">
+                <div className="flex gap-3 sm:gap-4">
+                  <button className="bg-white text-college-blue px-6 py-2.5 sm:px-8 sm:py-3 rounded text-xs sm:text-base font-bold hover:bg-gray-100 transition-colors shadow">
                     OUR VISION
                   </button>
-                  <button className="border-2 border-white text-white px-8 py-3 rounded font-bold hover:bg-white/10 transition-colors shadow">
+                  <button className="border-2 border-white text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded text-xs sm:text-base font-bold hover:bg-white/10 transition-colors shadow">
                     OUR MISSION
                   </button>
                 </div>
@@ -95,29 +95,29 @@ export default function Home() {
           </div>
         ))}
 
-        {/* Navigation Arrows */}
+        {/* Navigation Arrows (Hidden on mobile, swiping is active) */}
         <button 
           onClick={() => setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length)} 
-          className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-12 h-12 rounded-full z-20 flex items-center justify-center transition-all text-xl font-bold shadow-lg hover:scale-105"
+          className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-12 h-12 rounded-full z-20 items-center justify-center transition-all text-xl font-bold shadow-lg hover:scale-105"
           aria-label="Previous Slide"
         >
           &larr;
         </button>
         <button 
           onClick={() => setCurrentSlide((prev) => (prev + 1) % heroImages.length)} 
-          className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-12 h-12 rounded-full z-20 flex items-center justify-center transition-all text-xl font-bold shadow-lg hover:scale-105"
+          className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-12 h-12 rounded-full z-20 items-center justify-center transition-all text-xl font-bold shadow-lg hover:scale-105"
           aria-label="Next Slide"
         >
           &rarr;
         </button>
 
         {/* Navigation Dots */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+        <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 sm:gap-3 z-20">
           {heroImages.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-white scale-125 shadow-md' : 'bg-white/40 hover:bg-white/60'}`}
+              className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-white scale-125 shadow-md' : 'bg-white/40 hover:bg-white/60'}`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
