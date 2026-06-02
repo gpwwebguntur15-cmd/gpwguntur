@@ -34,8 +34,14 @@ export default function Home() {
       {/* Hero Section / Slider */}
       <section className="relative h-[600px] overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center hero-gradient flex items-center" 
-          style={{ backgroundImage: `url(${heroImages[0].src})`, backgroundBlendMode: 'overlay' }}
+          className="absolute inset-0 hero-gradient flex items-center animate-fade-in" 
+          style={{ 
+            backgroundImage: `url(${heroImages[0].src})`, 
+            backgroundBlendMode: 'overlay',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
         >
           <div className="container mx-auto px-4 md:px-20">
             <div className="max-w-2xl text-white">

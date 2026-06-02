@@ -20,7 +20,7 @@ const facilityDetails: Record<string, {
   gallery: GalleryItem[];
 }> = {
   library: {
-    details: "The Central Library is the heart of academic activities. It supports the teaching, research, and extension programs of the college. Our collection is updated annually to include the latest research materials, reference books, and technical literature.",
+    details: "The Central Library is the heart of academic activities. It supports the teaching, research, and extension programs of the college. Our collection comprises a massive library space, featuring over 6,755 books (with 5,404 procured under Government Head, and 1,291 under the Book Bank Scheme including SC/ST and sponsored books) spanning 1,708 unique titles. The library has adopted an efficient Open Access System and is fully automated using a modern Management Information System (MIS). It offers a dedicated computer section with 7 desktop systems, a high-speed 100 Mbps BSNL Fibre Net internet/Wi-Fi connection, and subscribes to multiple newspapers and journals.",
     features: [
       "More than 50,000 reference and text books.",
       "Access to online journals and digital libraries (DELNET).",
@@ -28,8 +28,29 @@ const facilityDetails: Record<string, {
       "Automated library management system with OPAC (Online Public Access Catalog).",
       "Dedicated computer terminal section for e-learning."
     ],
-    timing: "8:00 AM to 6:00 PM (All working days)",
-    gallery: [{ src: "/images/media__1778908869443.jpg", title: "Central Library" }]
+    timing: "9:00 AM to 5:30 PM",
+    gallery: [
+      {
+        src: "/images/library_digital_section_1.png",
+        title: "Digital Library & E-Learning Center",
+        desc: "Equipped with high-performance desktop computers and high-speed BSNL fibre internet for accessing digital books, online journals, and education portals."
+      },
+      {
+        src: "/images/library_digital_section_3.png",
+        title: "Computer Terminals & Internet Access",
+        desc: "A dedicated computing space enabling students to perform online research, academic projects, and software-based training courses."
+      },
+      {
+        src: "/images/library_display_1.png",
+        title: "Magazine & Journal Display Area",
+        desc: "Interactive carousel displays featuring national/international journals, engineering periodicals, daily newspapers, and student publications."
+      },
+      {
+        src: "/images/library_display_2.jpg",
+        title: "Current Affairs & Periodical Reading",
+        desc: "Students reading daily newsletters, technology magazines, and career guidance journals to stay updated with general knowledge."
+      }
+    ]
   },
   labs: {
     details: "Each engineering and science department has state-of-the-art laboratory facilities designed to provide hands-on experience and bridge the gap between theory and practical applications. All labs are managed by highly qualified technical assistants.",
@@ -172,15 +193,19 @@ export default function FacilityDetailPage() {
                 <p className="text-gray-700 font-semibold">{detail.timing}</p>
               </div>
               
-              <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Key Features & Facilities</h3>
-              <ul className="space-y-4">
-                {detail.features.map((feature, i) => (
-                  <li key={i} className="flex gap-3 text-gray-600 text-lg">
-                    <span className="text-blue-600">✔</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              {id !== "library" && id !== "labs" && (
+                <>
+                  <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Key Features & Facilities</h3>
+                  <ul className="space-y-4">
+                    {detail.features.map((feature, i) => (
+                      <li key={i} className="flex gap-3 text-gray-600 text-lg">
+                        <span className="text-blue-600">✔</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
 
               {id === "library" && (
                 <div className="mt-12 bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
@@ -325,27 +350,23 @@ export default function FacilityDetailPage() {
             <div className="w-20 h-1 bg-blue-600 mb-8"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {detail.gallery.map((item, index) => (
-                <div key={index} className="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group">
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200">
+                <div key={index} className="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col p-6">
+                  {item.title && (
+                    <h4 className="font-bold text-lg text-college-blue mb-4 uppercase tracking-tight">
+                      {item.title}
+                    </h4>
+                  )}
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200 rounded-lg mb-4">
                     <img 
                       src={item.src} 
                       alt={item.title || "Gallery Image"} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  {(item.title || item.desc) && (
-                    <div className="p-6">
-                      {item.title && (
-                        <h4 className="font-bold text-lg text-college-blue mb-2 uppercase">
-                          {item.title}
-                        </h4>
-                      )}
-                      {item.desc && (
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                          {item.desc}
-                        </p>
-                      )}
-                    </div>
+                  {item.desc && (
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
                   )}
                 </div>
               ))}
