@@ -187,19 +187,19 @@ export default function FacilityDetailPage() {
               <p className="text-gray-500 font-semibold text-sm mt-1">CAMPUS INFRASTRUCTURE</p>
             </div>
           </div>
-          
+
           <div className="w-20 h-1 bg-blue-600 mb-8"></div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Description</h3>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">{detail.details}</p>
-              
+
               <div className="bg-blue-50 p-6 border-l-4 border-blue-600 mb-8">
                 <p className="font-bold text-college-blue mb-1 uppercase text-sm">Working Hours / Availability</p>
                 <p className="text-gray-700 font-semibold">{detail.timing}</p>
               </div>
-              
+
               {id !== "library" && id !== "labs" && (
                 <>
                   <h3 className="text-xl font-bold text-gray-800 mb-4 uppercase">Key Features & Facilities</h3>
@@ -369,9 +369,9 @@ export default function FacilityDetailPage() {
                     </p>
                   )}
                   <div className="w-full aspect-[16/9] md:aspect-[21/9] max-h-[480px] overflow-hidden bg-gray-200 rounded-lg mb-6 shadow-inner">
-                    <img 
-                      src={item.src} 
-                      alt={item.title || "Gallery Image"} 
+                    <img
+                      src={item.src}
+                      alt={item.title || "Gallery Image"}
                       className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                     />
                   </div>
