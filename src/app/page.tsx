@@ -14,6 +14,9 @@ const departments = [
 export default function Home() {
   const [principal, setPrincipal] = useState<PrincipalInfo>(defaultPrincipal);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   useEffect(() => {
     async function loadData() {
@@ -25,42 +28,99 @@ export default function Home() {
   }, []);
 
   const heroImages = [
-    { src: "/images/academic_block.jpg", title: "Empowering Women through Education", sub: "Government Polytechnic For Women, Guntur" },
-    { src: "/images/media__1778908989802.jpg", title: "Excellence Since 1967", sub: "A Legacy of Academic and Technical Success" },
+    { src: "/images/home_academic_block.jpg", title: "Empowering Women through Education", sub: "Government Polytechnic For Women, Guntur" },
+    { src: "/images/home_administrative_block.jpg", title: "Excellence Since 1967", sub: "A Legacy of Academic and Technical Success" },
   ];
+
+  const minSwipeDistance = 50;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    } else if (isRightSwipe) {
+      setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+    }
+  };
 
   return (
     <div className="bg-white">
       {/* Hero Section / Slider */}
-      <section className="relative h-[600px] overflow-hidden">
-        <div 
-          className="absolute inset-0 hero-gradient flex items-center animate-fade-in" 
-          style={{ 
-            backgroundImage: `url(${heroImages[0].src})`, 
-            backgroundBlendMode: 'overlay',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <div className="container mx-auto px-4 md:px-20">
-            <div className="max-w-2xl text-white">
-              <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in">
-                {heroImages[0].title}
-              </h2>
-              <p className="text-xl md:text-2xl mb-8 text-gray-200">
-                {heroImages[0].sub}
-              </p>
-              <div className="flex gap-4">
-                <button className="bg-white text-college-blue px-8 py-3 rounded font-bold hover:bg-gray-100 transition-colors">
-                  OUR VISION
-                </button>
-                <button className="border-2 border-white text-white px-8 py-3 rounded font-bold hover:bg-white/10 transition-colors">
-                  OUR MISSION
-                </button>
+      <section className="relative h-[600px] overflow-hidden bg-gray-950">
+        {heroImages.map((slide, idx) => (
+          <div 
+            key={idx}
+            className={`absolute inset-0 hero-gradient flex items-center transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}
+            style={{ 
+              backgroundImage: `url(${slide.src})`, 
+              backgroundBlendMode: 'overlay',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="container mx-auto px-4 md:px-20">
+              <div className="max-w-2xl text-white">
+                <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-md">
+                  {slide.title}
+                </h2>
+                <p className="text-xl md:text-2xl mb-8 text-gray-200 drop-shadow-sm">
+                  {slide.sub}
+                </p>
+                <div className="flex gap-4">
+                  <button className="bg-white text-college-blue px-8 py-3 rounded font-bold hover:bg-gray-100 transition-colors shadow">
+                    OUR VISION
+                  </button>
+                  <button className="border-2 border-white text-white px-8 py-3 rounded font-bold hover:bg-white/10 transition-colors shadow">
+                    OUR MISSION
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+        ))}
+
+        {/* Navigation Arrows */}
+        <button 
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length)} 
+          className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-12 h-12 rounded-full z-20 flex items-center justify-center transition-all text-xl font-bold shadow-lg hover:scale-105"
+          aria-label="Previous Slide"
+        >
+          &larr;
+        </button>
+        <button 
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % heroImages.length)} 
+          className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-12 h-12 rounded-full z-20 flex items-center justify-center transition-all text-xl font-bold shadow-lg hover:scale-105"
+          aria-label="Next Slide"
+        >
+          &rarr;
+        </button>
+
+        {/* Navigation Dots */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+          {heroImages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-white scale-125 shadow-md' : 'bg-white/40 hover:bg-white/60'}`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </section>
 
