@@ -52,6 +52,32 @@ export default function EventsPage() {
           caption: "Token of Respect: Presenting shawls to retired professors during the ceremony."
         }
       ]
+    },
+    {
+      id: "library-awards-2026",
+      title: "Library Awards & Recognition Ceremony",
+      date: "May 25, 2026",
+      category: "Library",
+      desc: "Recognizing outstanding student readers, digital library achievers, and academic excellence.",
+      longDesc: "Government Polytechnic for Women, Guntur hosted a Library Awards & Recognition Ceremony to celebrate students who demonstrated exceptional academic diligence and active participation in library reading initiatives. Trophies and certificates of merit were presented to top students by the Principal and guest dignitaries. This initiative aims to encourage self-directed learning, digital literacy, and regular library research among the students.",
+      images: [
+        {
+          src: "/images/library_award_1.jpg",
+          caption: "Award Achievers: Students proudly presenting their trophies and certificates with faculty heads."
+        },
+        {
+          src: "/images/library_award_3.jpg",
+          caption: "Presentation Ceremony: Guest officials presenting merit awards to students on stage."
+        },
+        {
+          src: "/images/library_award_2.jpg",
+          caption: "Academic Recognition: Celebrating library achievers alongside the faculty coordinators."
+        },
+        {
+          src: "/images/library_award_4.jpg",
+          caption: "Felicitation Stage: Celebrating student accomplishments during the library recognition meet."
+        }
+      ]
     }
   ];
 
