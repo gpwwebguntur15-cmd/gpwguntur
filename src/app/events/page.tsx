@@ -20,6 +20,24 @@ export default function EventsPage() {
 
   const eventsList: CampusEvent[] = [
     {
+      id: "scholarship-dccp-oct-2026",
+      title: "Scholarship Distribution – DCCP Students",
+      date: "October 25, 2026",
+      category: "Scholarship",
+      desc: "Scholarship amounts disbursed to meritorious DCCP students Pravallika (V Sem) and Ankita Gupta (III Sem).",
+      longDesc: "Government Polytechnic for Women, Guntur is proud to announce the disbursement of government scholarships to deserving students of the Department of Commercial and Computer Practice (DCCP). Ms. Pravallika, a V Semester DCCP student, received a scholarship of ₹7,300, and Ms. Ankita Gupta, a III Semester DCCP student, received a scholarship of ₹33,366. The scholarship amounts were formally handed over in the presence of senior faculty members and the Principal. This initiative reflects the institution's commitment to supporting financially deserving and academically diligent students in pursuing their higher education goals.",
+      images: [
+        {
+          src: "/images/scholarship_pravallika_dccp_vsem.jpg",
+          caption: "Scholarship of ₹7,300 being handed over to Ms. Pravallika, DCCP V Semester student, in the presence of faculty members."
+        },
+        {
+          src: "/images/scholarship_ankita_dccp_iiisem.jpg",
+          caption: "Scholarship of ₹33,366 being presented to Ms. Ankita Gupta, DCCP III Semester student, by college officials."
+        }
+      ]
+    },
+    {
       id: "alumni-meet-2026",
       title: "Annual Alumni Meet & Felicitation Ceremony",
       date: "May 10, 2026",
