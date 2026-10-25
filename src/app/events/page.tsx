@@ -20,6 +20,36 @@ export default function EventsPage() {
 
   const eventsList: CampusEvent[] = [
     {
+      id: "noise-pollution-seminar-oct-2026",
+      title: "Awareness Seminar on Noise Pollution",
+      date: "October 7, 2026",
+      category: "Awareness",
+      desc: "An awareness seminar and rally on noise pollution conducted at the Seminar Hall, engaging students and faculty in spreading the message of a noise-free environment.",
+      longDesc: "Government Polytechnic for Women, Guntur, under the Department of Higher Education, organized an Awareness Seminar on Noise Pollution on October 7, 2026, at the Seminar Hall. The event aimed to educate students about the harmful effects of noise pollution, including ear damage, stress, and sleep disturbances, as well as campus-specific issues such as unauthorized loudspeaker usage and unnecessary traffic honking. A classroom session was conducted by faculty members using interactive presentations, followed by an awareness rally where students marched through the campus and surrounding areas holding placards with powerful slogans like 'Noise is the Silent Killer of Peace', 'Don't Be Noisy, Be Wise', and 'Say No to Noise – Say Yes to Peace'. The event concluded with a collective pledge: Less Noise • Healthy People • Cleaner Environment • Brighter Tomorrow.",
+      images: [
+        {
+          src: "/images/noise_pollution_seminar_poster.jpg",
+          caption: "Awareness Seminar on Noise Pollution – Event poster highlighting key issues: Ear Damage, Loudspeakers Ban, and Traffic Honking, held on 07-10-2026 at the Seminar Hall."
+        },
+        {
+          src: "/images/noise_pollution_classroom_session.jpg",
+          caption: "Seminar Session: Faculty conducting an interactive classroom presentation on Noise Pollution awareness for students."
+        },
+        {
+          src: "/images/noise_pollution_students_placards.jpg",
+          caption: "Students Participation: Students holding awareness placards with slogans like 'Noise is the Silent Killer of Peace' and 'Say No to Noise – Say Yes to Peace'."
+        },
+        {
+          src: "/images/noise_pollution_rally_1.jpg",
+          caption: "Awareness Rally: Faculty and students marching through the campus in a noise pollution awareness rally."
+        },
+        {
+          src: "/images/noise_pollution_rally_2.jpg",
+          caption: "Community March: Students and staff conducting an awareness rally outside the college campus to spread the message of a noise-free environment."
+        }
+      ]
+    },
+    {
       id: "scholarship-dccp-oct-2026",
       title: "Scholarship Distribution – DCCP Students",
       date: "October 25, 2026",
