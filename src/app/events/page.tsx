@@ -46,6 +46,18 @@ export default function EventsPage() {
         {
           src: "/images/noise_pollution_rally_2.jpg",
           caption: "Community March: Students and staff conducting an awareness rally outside the college campus to spread the message of a noise-free environment."
+        },
+        {
+          src: "/images/noise_pollution_student_presentation.jpg",
+          caption: "Student Presentation: A student explaining the effects of noise pollution using an illustrated painting displayed on the smart board."
+        },
+        {
+          src: "/images/noise_pollution_classroom_full.jpg",
+          caption: "Interactive Session: Students attentively participating in the noise pollution awareness seminar during the classroom session."
+        },
+        {
+          src: "/images/noise_pollution_faculty_session.jpg",
+          caption: "Faculty Session: A faculty member explaining noise pollution concepts using visual aids on the smart board to a full classroom of students."
         }
       ]
     },
